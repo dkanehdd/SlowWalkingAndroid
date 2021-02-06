@@ -22,8 +22,19 @@
         android:layout_height="0dp"
         android:layout_weight="5">
 
+
+
         <Button
-            android:id="@+id/loginButton"
+            android:id="@+id/ParentsRegister"
+            android:layout_width="200sp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="#FFC107"
+            android:text="부모회원가입"
+            android:textSize="30sp"></Button>
+
+        <Button
+            android:id="@+id/SitterRegister"
             android:layout_width="200sp"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -31,15 +42,6 @@
             android:text="시터회원가입"
             android:layout_marginBottom="10sp"
             android:layout_marginTop="50sp"
-            android:textSize="30sp"></Button>
-
-        <Button
-            android:layout_width="200sp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/loginButton"
-            android:layout_centerHorizontal="true"
-            android:background="#FFC107"
-            android:text="부모회원가입"
             android:textSize="30sp"></Button>
     </RelativeLayout>
 
