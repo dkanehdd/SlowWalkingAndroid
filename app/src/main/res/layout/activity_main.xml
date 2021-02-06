@@ -23,7 +23,7 @@
         android:layout_weight="1">
 
         <Button
-            android:id="@+id/loginButton"
+            android:id="@+id/btnLogin"
             android:layout_width="150sp"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -34,9 +34,10 @@
             android:textSize="30sp"></Button>
 
         <Button
+            android:id="@+id/btnregister"
             android:layout_width="150sp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/loginButton"
+            android:layout_below="@+id/btnLogin"
             android:layout_centerHorizontal="true"
             android:background="#FFEB3B"
             android:text="회원가입"
