@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SlowWalking">
         <activity android:name=".RegisterSelect"></activity>
+        <activity android:name=".LoginActivity"></activity>
         <activity android:name=".Intro">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
