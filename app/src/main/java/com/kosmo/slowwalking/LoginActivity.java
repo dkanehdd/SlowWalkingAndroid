@@ -1,6 +1,7 @@
 package com.kosmo.slowwalking;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -47,10 +48,16 @@ public class LoginActivity extends AppCompatActivity {
                 각 입력상자에 입력된 내용을 얻어와서 전달한다.
                  */
                 new AsyncHttpRequest().execute(
-                        "http://192.168.219.106:8080/k12springapi/android/memberLogin.do",
+                        "http://192.168.219.104:8080/k12springapi/android/memberLogin.do",
+
                         "id="+user_id.getText().toString(),
                         "pass="+user_pw.getText().toString()
                 );
+
+                Intent intent = new Intent(v.getContext(),
+                        MenuList.class);
+                //액티비티 실행
+                startActivity(intent);
             }
         });
         //진행대화상자 준비...
