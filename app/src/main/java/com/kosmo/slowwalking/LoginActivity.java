@@ -121,6 +121,7 @@ public class LoginActivity extends AppCompatActivity {
             //저장된 내용을 로그로 출력한후 onPostExecute()로 반환한다.
             Log.i(TAG, receiveData.toString());
 
+
             //서버에서 내려준 JSON정보를 저장후 반환
             return receiveData.toString();
         }
