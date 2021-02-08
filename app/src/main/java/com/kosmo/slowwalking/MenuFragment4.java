@@ -17,7 +17,7 @@ import android.widget.Toast;
 public class MenuFragment4 extends Fragment {
 
     public static final String TAG = "ikosmo";
-    String[] idolGroup = {"프로필수정 ","내 의뢰서장성","내 의뢰서보기","내 구인현황","후기관리","이용권","포인트"};
+    String[] idolGroup = {"프로필수정 ","내 의뢰서작성","내 의뢰서보기","내 구인현황","후기관리","이용권","포인트"};
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
