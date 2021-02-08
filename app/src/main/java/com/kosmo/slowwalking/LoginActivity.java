@@ -51,20 +51,16 @@ public class LoginActivity extends AppCompatActivity {
                         "http://192.168.219.105:8080/k12springapi/android/memberLogin.do",
 
                         "id="+user_id.getText().toString(),
-                        "pass="+user_pw.getText().toString()
+                        "pw="+user_pw.getText().toString()
                 );
 
-                Intent intent = new Intent(v.getContext(),
-                        MenuList.class);
-                //액티비티 실행
-                startActivity(intent);
+
             }
         });
         //진행대화상자 준비...
         dialog = new ProgressDialog(this);
         dialog.setCancelable(true);//Back버튼을 누를때 대화상자창이 닫히게 설정
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        dialog.setIcon(android.R.drawable.ic_dialog_email);
         dialog.setTitle("로그인 처리중");
         dialog.setMessage("서버로부터 응답을 기다리고 있습니다.");
     }
@@ -112,6 +108,7 @@ public class LoginActivity extends AppCompatActivity {
                     reader.close();
                 }
                 else{
+                    Log.i(TAG, connection.getResponseCode()+"");
                     Log.i(TAG, "HTTP OK 안됨");
                 }
             }
@@ -151,28 +148,42 @@ public class LoginActivity extends AppCompatActivity {
                 //파싱후 로그인 성공인 경우
                 if(success==1){
                     sb.append("로그인 성공^^\n");
-                    //객체안에 또 하나의 객체가 있으므로 getJSONObject()를 통해 파싱
-                    String id = jsonObject.getJSONObject("memberInfo").getString("id").toString();
-                    String pass = jsonObject.getJSONObject("memberInfo").getString("pass").toString();
-                    String name = jsonObject.getJSONObject("memberInfo").getString("name").toString();
 
-                    sb.append("회원정보\n");
-                    sb.append("아이디:"+id+"\n");
-                    sb.append("패스워드:"+pass+"\n");
-                    sb.append("이름:"+name+"\n");
+                    //객체안에 또 하나의 객체가 있으므로 getJSONObject()를 통해 파싱
+                    String flag = jsonObject.getJSONObject("memberInfo").getString("flag").toString();
+                    String name = jsonObject.getJSONObject("memberInfo").getString("name").toString();
+                    sb.append(name+"님 환영합니다~^^");
+                    dialog.dismiss();
+                    Toast.makeText(getApplicationContext(),
+                            sb.toString(),
+                            Toast.LENGTH_SHORT).show();
+                    if(flag.equals("sitter")){
+                        Intent intent = new Intent(LoginActivity.this,
+                                MenuList.class);
+                        //부가데이터를 넘기기 위한 준비. Map컬렉션같이 Key와 value로 설정
+                        intent.putExtra("flag", flag);
+                        //액티비티 실행
+                        startActivity(intent);
+                    }
+                    else {
+                        Intent intent = new Intent(LoginActivity.this,
+                                MenuList.class);
+                        intent.putExtra("flag", flag);
+                        //액티비티 실행
+                        startActivity(intent);
+                    }
                 }
                 else{
-                    sb.append("로그인 실패 ㅜㅜ");
+                    sb.append("아이디 또는 패스워드가 잘못되었습니다.");
                 }
             }
             catch (Exception e){
                 e.printStackTrace();
             }
             dialog.dismiss();
-            textResult.setText(sb.toString());
             Toast.makeText(getApplicationContext(),
                     sb.toString(),
-                    Toast.LENGTH_LONG).show();
+                    Toast.LENGTH_SHORT).show();
         }
     }
 }
