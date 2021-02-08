@@ -13,7 +13,7 @@ public class RegisterSelect extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_select);
 
-        ((Button)findViewById(R.id.ParentsRegister)).setOnClickListener(new View.OnClickListener() {
+        ((Button)findViewById(R.id.SelectParents)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(),
