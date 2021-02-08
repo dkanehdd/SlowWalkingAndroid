@@ -48,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
                 각 입력상자에 입력된 내용을 얻어와서 전달한다.
                  */
                 new AsyncHttpRequest().execute(
-                        "http://192.168.219.104:8080/k12springapi/android/memberLogin.do",
+                        "http://192.168.219.105:8080/k12springapi/android/memberLogin.do",
 
                         "id="+user_id.getText().toString(),
                         "pass="+user_pw.getText().toString()
