@@ -13,8 +13,8 @@
         android:theme="@style/Theme.SlowWalking"
         android:usesCleartextTraffic="true"
         android:requestLegacyExternalStorage="true">
+        <activity android:name=".ParentsRegister"/>
         <activity android:name=".SitterRegister" />
-        <activity android:name=".ParentsRegister"></activity>
         <activity android:name=".RegisterSelect" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".MenuList" />
