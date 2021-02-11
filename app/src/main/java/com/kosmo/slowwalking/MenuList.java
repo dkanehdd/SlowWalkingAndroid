@@ -60,10 +60,10 @@ public class MenuList extends AppCompatActivity {
                 case R.id.homeItem:
                     transaction.replace(R.id.frameLayout, menuFragment1).commitAllowingStateLoss();
                     break;
-                case R.id.listItem:
+                case R.id.interviewItem:
                     transaction.replace(R.id.frameLayout, menuFragment2).commitAllowingStateLoss();
                     break;
-                case R.id.interviewItem:
+                case R.id.dialyItem:
                     transaction.replace(R.id.frameLayout, menuFragment3).commitAllowingStateLoss();
                     break;
                 case R.id.mypageItem:

@@ -3,18 +3,18 @@
 
     <item
         android:id="@+id/homeItem"
-        android:icon="@android:drawable/ic_lock_power_off"
+        android:icon="@drawable/house"
         android:title="홈" />
     <item
-        android:id="@+id/listItem"
-        android:icon="@android:drawable/ic_menu_search"
-        android:title="시터리스트" />
-    <item
         android:id="@+id/interviewItem"
-        android:icon="@android:drawable/btn_star_big_on"
+        android:icon="@drawable/number1"
         android:title="내 구직현황" />
     <item
+        android:id="@+id/dialyItem"
+        android:icon="@drawable/chatballoon"
+        android:title="알림장쓰기" />
+    <item
         android:id="@+id/mypageItem"
-        android:icon="@android:drawable/ic_menu_sort_by_size"
+        android:icon="@drawable/businessman"
         android:title="마이페이지" />
 </menu>
