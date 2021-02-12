@@ -14,14 +14,11 @@
         android:text="내 구직현황"
         android:textSize="40sp">
     </TextView>
-    <RelativeLayout
+    <ListView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:id="@android:id/list">
 
-        </ListView>
-    </RelativeLayout>
+    </ListView>
+
 </LinearLayout>
