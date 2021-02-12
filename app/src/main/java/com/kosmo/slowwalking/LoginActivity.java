@@ -48,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
                 각 입력상자에 입력된 내용을 얻어와서 전달한다.
                  */
                 new AsyncHttpRequest().execute(
-                        "http://192.168.0.2:8080/slowwalking/android/memberLogin",
+                        "http://192.168.219.105:8080/slowwalking/android/memberLogin.do",
 
                         "id="+user_id.getText().toString(),
                         "pw="+user_pw.getText().toString()
