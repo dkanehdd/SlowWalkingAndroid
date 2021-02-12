@@ -44,36 +44,38 @@ public class MenuList extends AppCompatActivity {
         setContentView(R.layout.activity_menu_list);
         final Intent intent = getIntent();
         flag = intent.getStringExtra("flag");
+        String id = intent.getStringExtra("id");
         if(flag.equals("sitter")){
 
         }
-        new InterviewAsyncHttpRequest().execute(
+        new InterviewAsyncHttpRequest().execute( //1. 인터뷰리스트 불러오기
                 "http://192.168.35.123:8080/slowwalking/android/interList",
-                "id=dkanehd",
-                "flag=sitter"
+                "id="+id,
+                "flag="+flag
         );
 
         fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
         menuFragment1 = new MenuFragment1();
-        Bundle bundle = new Bundle();
+        
+        
         menuFragment2 = new MenuFragment2();
-
-        bundle.putStringArrayList("interviewID", interviewID);
-        bundle.putStringArrayList("request_time", request_time);
-        menuFragment2.setArguments(bundle);
+        Bundle bundle2 = new Bundle();
+        bundle2.putStringArrayList("interviewID", interviewID);//번들객체에 리스트로 담아서
+        bundle2.putStringArrayList("request_time", request_time);
+        menuFragment2.setArguments(bundle2);//프래그먼트에 세팅
 
         menuFragment3 = new MenuFragment3();
         menuFragment4 = new MenuFragment4();
         menuFragment5 = new MenuFragment5();
 
-        fragmentTransaction.replace(R.id.frameLayout, menuFragment1).commit();
+        fragmentTransaction.replace(R.id.frameLayout, menuFragment1).commit();//첨 화면진입시 1번이 보여짐
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.navigationView);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new ItemSelectedListener());
+        bottomNavigationView.setOnNavigationItemSelectedListener(new ItemSelectedListener());//하단바에 리스너 부착
     }
-    // 하단바에 리스너 부착
+    //리스너 설정
     class ItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener{
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -98,7 +100,7 @@ public class MenuList extends AppCompatActivity {
         }
     }
 
-
+    //인터뷰 리스트 불러오기
     class InterviewAsyncHttpRequest extends AsyncTask<String, Void, String> {
 
 
@@ -107,9 +109,6 @@ public class MenuList extends AppCompatActivity {
             super.onPreExecute();
         }
 
-        /*
-        execute()호출시 전달된 3개의 파라미터를 가변인자로 받아서 사용함.
-         */
         @Override
         protected String doInBackground(String... strings) {
 
@@ -168,20 +167,20 @@ public class MenuList extends AppCompatActivity {
             StringBuffer sb = new StringBuffer();
             try{
                 /*
-                {"isLogin":1,
-                "memberInfo":
-                    {"id":"dkanehdd","pass":"1111","name":"남민우","regidate":"2020-12-03"}
-                }
+                {"lists":[{"idx":8,"parents_id":"dkanehdd","sitter_id":"dkanehd","request_time":"15:00 ~ 20:00",
+                "parents_agree":"T","sitter_agree":"T","request_idx":10,"parents_name":null,"sitter_name":null},
+                {"idx":7,"parents_id":"kosmo3","sitter_id":"dkanehd","request_time":"18:00 ~ 21:00","parents_agree":"T",
+                "sitter_agree":"T","request_idx":9,"parents_name":null,"sitter_name":null}]}
                  */
                 //JSON객체를 파싱
                 JSONObject jsonObject = new JSONObject(s);
-                JSONArray jsonArray = (JSONArray)jsonObject.get("lists");
+                JSONArray jsonArray = (JSONArray)jsonObject.get("lists");//lists로 배열을 먼저 얻어옴 []
 
-                for(int i=0 ; i<jsonArray.length() ; i++){
-                    JSONObject interview = (JSONObject) jsonArray.get(i);
-                    Log.i(TAG, interview.get("parents_id").toString()+" "+interview.get("request_time").toString());
-                    interviewID.add(interview.get("parents_id").toString());
-                    request_time.add(interview.get("request_time").toString());
+                for(int i=0 ; i<jsonArray.length() ; i++){//배열크기만큼반복
+                    JSONObject interview = (JSONObject) jsonArray.get(i); //배열에서 하나씩 가져옴
+                    Log.i(TAG, interview.get("parents_id").toString()+" "+interview.get("request_time").toString());//디버깅용
+                    interviewID.add(interview.get("parents_id").toString());//가져와서 컬렉션에 저장
+                    request_time.add(interview.get("request_time").toString());//가져와서 컬렉션에 저장
                 }
             }
             catch (Exception e){

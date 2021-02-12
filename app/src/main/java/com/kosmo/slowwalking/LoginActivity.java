@@ -161,6 +161,7 @@ public class LoginActivity extends AppCompatActivity {
                         Intent intent = new Intent(LoginActivity.this,
                                 MenuList.class);
                         //부가데이터를 넘기기 위한 준비. Map컬렉션같이 Key와 value로 설정
+                        intent.putExtra("id", user_id.getText());
                         intent.putExtra("flag", flag);
                         //액티비티 실행
                         startActivity(intent);
@@ -168,6 +169,7 @@ public class LoginActivity extends AppCompatActivity {
                     else {
                         Intent intent = new Intent(LoginActivity.this,
                                 MenuList.class);
+                        intent.putExtra("id", user_id.getText());
                         intent.putExtra("flag", flag);
                         //액티비티 실행
                         startActivity(intent);
