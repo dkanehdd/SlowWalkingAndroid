@@ -38,6 +38,7 @@ public class MenuList extends AppCompatActivity {
 
     ArrayList<String> interviewID = new ArrayList<String>() ;
     ArrayList<String> request_time = new ArrayList<String>() ;
+    ArrayList<Integer> interview_idx = new ArrayList<Integer>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +65,8 @@ public class MenuList extends AppCompatActivity {
         Bundle bundle2 = new Bundle();
         bundle2.putStringArrayList("interviewID", interviewID);//번들객체에 리스트로 담아서
         bundle2.putStringArrayList("request_time", request_time);
+        bundle2.putIntegerArrayList("interview_idx", interview_idx);
+        bundle2.putString("flag", flag);
         menuFragment2.setArguments(bundle2);//프래그먼트에 세팅
 
         menuFragment3 = new MenuFragment3();
@@ -181,6 +184,7 @@ public class MenuList extends AppCompatActivity {
                     Log.i(TAG, interview.get("parents_id").toString()+" "+interview.get("request_time").toString());//디버깅용
                     interviewID.add(interview.get("parents_id").toString());//가져와서 컬렉션에 저장
                     request_time.add(interview.get("request_time").toString());//가져와서 컬렉션에 저장
+                    interview_idx.add(Integer.parseInt(interview.get("idx").toString()));
                 }
             }
             catch (Exception e){

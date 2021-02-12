@@ -18,6 +18,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class MenuFragment2 extends ListFragment {
@@ -26,7 +27,8 @@ public class MenuFragment2 extends ListFragment {
     public static final String TAG = "ikosmo";
     ArrayList<String> interviewID;
     ArrayList<String> request_time;
-
+    ArrayList<Integer> interview_idx;
+    String flag;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -39,9 +41,12 @@ public class MenuFragment2 extends ListFragment {
         Bundle bundle = getArguments();
         interviewID = bundle.getStringArrayList("interviewID");
         request_time = bundle.getStringArrayList("request_time");
+        interview_idx = bundle.getIntegerArrayList("interview_idx");
+        flag= bundle.getString("flag");
 
         MyAdapter myAdapter = new MyAdapter();
         listView.setAdapter(myAdapter);
+
 
 
         return viewGroup;
@@ -67,6 +72,8 @@ public class MenuFragment2 extends ListFragment {
             InterView interView = new InterView(getContext());
             interView.setName(interviewID.get(position));
             interView.setPhone(request_time.get(position));
+            interView.setAgree(interview_idx.get(position), flag);
+            interView.setDelete(interview_idx.get(position), flag);
             return interView;
 
         }
