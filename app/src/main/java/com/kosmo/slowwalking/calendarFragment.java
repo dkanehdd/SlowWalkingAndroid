@@ -13,7 +13,7 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class MenuFragment5 extends Fragment {
+public class calendarFragment extends Fragment {
 
     public static final String TAG = "ikosmo";
     String[] idolGroup = {"프로필수정 ","내 신청서작성","내 신청서","내 구직현황","알림장","후기관리","이용권","포인트"};
@@ -24,7 +24,7 @@ public class MenuFragment5 extends Fragment {
 
         ViewGroup viewGroup = (ViewGroup)inflater.inflate(R.layout.menu_fragment5, container, false);
         ListView listView = (ListView)viewGroup.findViewById(R.id.listview5);
-        MenuFragment5.MyAdapter myAdapter = new MenuFragment5.MyAdapter();
+        calendarFragment.MyAdapter myAdapter = new calendarFragment.MyAdapter();
         listView.setAdapter(myAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

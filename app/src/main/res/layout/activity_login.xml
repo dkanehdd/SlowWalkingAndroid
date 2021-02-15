@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="Local Spring서버와 연동하기2"
+        android:text="느린걸음 로그인하기"
         android:textSize="25dp"/>
 
     <LinearLayout
@@ -62,17 +62,7 @@
                 android:text="회원로그인"
                 android:id="@+id/btn_login"/>
         </LinearLayout>
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="결과출력"
-                android:padding="10dp"
-                android:textSize="20sp"
-                android:id="@+id/text_result"/>
-        </ScrollView>
+
 
     </LinearLayout>
 

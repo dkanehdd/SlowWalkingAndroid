@@ -12,7 +12,7 @@
         android:id="@+id/interviewItems">
 
         <TextView
-            android:id="@+id/parent_id"
+            android:id="@+id/parent_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
@@ -33,17 +33,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="수락"
-            android:id="@+id/Btnagree">
+            android:text="알림장"
+            android:id="@+id/Btndiary">
         </Button>
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="삭제"
-            android:id="@+id/Btndelete">
-        </Button>
-
-
     </LinearLayout>
 </LinearLayout>

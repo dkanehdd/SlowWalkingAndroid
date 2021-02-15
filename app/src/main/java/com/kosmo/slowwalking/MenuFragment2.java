@@ -17,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -46,7 +47,9 @@ public class MenuFragment2 extends ListFragment {
 
         MyAdapter myAdapter = new MyAdapter();
         listView.setAdapter(myAdapter);
-
+        if(interviewID.size()==0){
+            viewGroup.findViewById(R.id.interviewX).setVisibility(TextView.VISIBLE);
+        }
 
 
         return viewGroup;
@@ -74,6 +77,7 @@ public class MenuFragment2 extends ListFragment {
             interView.setPhone(request_time.get(position));
             interView.setAgree(interview_idx.get(position), flag);
             interView.setDelete(interview_idx.get(position), flag);
+
             return interView;
 
         }
