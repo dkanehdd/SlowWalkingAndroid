@@ -53,7 +53,6 @@ public class SitterRegister extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sitter_register);
 
-        textResult = (TextView) findViewById(R.id.text_result);
         id = (EditText) findViewById(R.id.user_id);//아이디 입력 상자
         pw = (EditText) findViewById(R.id.user_pw);//패스워드 입력 상자
         pw2 = (EditText) findViewById(R.id.user_pw2);//패스워드 입력 상자
@@ -78,8 +77,9 @@ public class SitterRegister extends AppCompatActivity {
                 첫번째는 요청URL, 두번째와 세번째는 서버로 전송할 파라미터이다.
                 각 입력상자에 입력된 내용을 가져와서 전달한다.
                  */
+                String ip = getString(R.string.ip_config);
                 new AsyncHttpServer().execute(
-                        "http://192.168.25.11:8080/slowwalking/android/joinAction",
+                        "http://"+ip+":8080/slowwalking/android/joinAction",
 
                         "id=" + id.getText().toString(),
                         "pw=" + pw.getText().toString(),

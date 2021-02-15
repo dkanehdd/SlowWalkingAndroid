@@ -25,7 +25,6 @@ public class LoginActivity extends AppCompatActivity {
 
     //전역변수
     EditText user_id, user_pw;
-    TextView textResult;
     ProgressDialog dialog;
 
     @Override
@@ -34,7 +33,6 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         //위젯얻어오기
-        textResult = (TextView)findViewById(R.id.text_result);
         user_id = (EditText)findViewById(R.id.user_id);//아이디 입력상자
         user_pw = (EditText)findViewById(R.id.user_pw);//패스워드 입력상자
         Button btnLogin = (Button)findViewById(R.id.btn_login);
@@ -47,8 +45,10 @@ public class LoginActivity extends AppCompatActivity {
                 첫번째는 요청URL, 두번째와 세번째는 서버로 전송할 파라미터이다.
                 각 입력상자에 입력된 내용을 얻어와서 전달한다.
                  */
+                String ip = getString(R.string.ip_config);
                 new AsyncHttpRequest().execute(
-                        "http://192.168.219.105:8080/k12springapi/android/memberLogin.do",
+
+                        "http://192.168.219.118:8080/slowwalking/android/memberLogin.do",
 
                         "id="+user_id.getText().toString(),
                         "pw="+user_pw.getText().toString()
@@ -157,21 +157,13 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),
                             sb.toString(),
                             Toast.LENGTH_SHORT).show();
-                    if(flag.equals("sitter")){
-                        Intent intent = new Intent(LoginActivity.this,
-                                MenuList.class);
-                        //부가데이터를 넘기기 위한 준비. Map컬렉션같이 Key와 value로 설정
-                        intent.putExtra("flag", flag);
-                        //액티비티 실행
-                        startActivity(intent);
-                    }
-                    else {
-                        Intent intent = new Intent(LoginActivity.this,
-                                MenuList.class);
-                        intent.putExtra("flag", flag);
-                        //액티비티 실행
-                        startActivity(intent);
-                    }
+                    Intent intent = new Intent(LoginActivity.this,
+                            MenuList.class);
+                    //부가데이터를 넘기기 위한 준비. Map컬렉션같이 Key와 value로 설정
+                    intent.putExtra("id", user_id.getText().toString());
+                    intent.putExtra("flag", flag);
+                    //액티비티 실행
+                    startActivity(intent);
                 }
                 else{
                     sb.append("아이디 또는 패스워드가 잘못되었습니다.");
