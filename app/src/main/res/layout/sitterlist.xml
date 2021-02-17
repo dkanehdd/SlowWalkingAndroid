@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:id="@+id/sitterviewItems">
+
+        <ImageView
+            android:id="@+id/imageview"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="TextView"
+            android:textSize="30sp" />
+<LinearLayout
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="2"
+    android:orientation="vertical">
+        <TextView
+            android:id="@+id/request_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textColor="@color/btn_logut_bg"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/request_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20px"
+            android:text="TextView"
+            android:textColor="@color/input_register_hint"
+            android:textSize="24sp" />
+    <TextView
+        android:id="@+id/request_age"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20px"
+        android:text="TextView"
+        android:textColor="@color/input_register_hint"
+        android:textSize="24sp" />
+    <TextView
+        android:id="@+id/request_account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20px"
+        android:text="TextView"
+        android:textColor="@color/input_register_hint"
+        android:textSize="24sp" />
+    <TextView
+        android:id="@+id/request_starrate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20px"
+        android:text="TextView"
+        android:textColor="@color/input_register_hint"
+        android:textSize="24sp" />
+</LinearLayout>
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="상세보기"
+            android:id="@+id/BtnsitterView">
+        </Button>
+
+
+    </LinearLayout>
+</LinearLayout>
