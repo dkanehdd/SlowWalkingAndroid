@@ -57,12 +57,12 @@ public class MenuFragment2 extends ListFragment {
     class MyAdapter extends BaseAdapter{
         @Override
         public int getCount() {
-            return interviewID.size();
+            return request_time.size();
         }
 
         @Override
         public Object getItem(int position) {
-            return interviewID.get(position);
+            return request_time.get(position);
         }
 
         @Override

@@ -1,13 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <ImageView
+        android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/slow"
-        android:scaleType="fitXY"
-        android:id="@+id/imageview"/>
+        android:layout_height="215dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="200dp"
+        app:srcCompat="@drawable/slow_logo" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/noto_sans_bold"
+        android:text="느린걸음"
+        android:textColor="#DC5C05"
+        android:gravity="center_horizontal"
+        android:textSize="40sp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:fontFamily="@font/noto_sans"
+        android:gravity="center_horizontal"
+        android:text="Copyrightⓒ 2021. Majungmul. All rights reserved."
+        android:textColor="#aaa"
+        android:textSize="12sp" />
 </LinearLayout>

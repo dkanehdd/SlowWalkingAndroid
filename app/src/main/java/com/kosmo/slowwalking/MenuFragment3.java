@@ -31,7 +31,6 @@ public class MenuFragment3 extends Fragment {
     ArrayList<String> Request_time = new ArrayList<String>() ;
     ArrayList<String> parentsName = new ArrayList<String>();
     private static CustomAdapter customAdapter;
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -42,7 +41,6 @@ public class MenuFragment3 extends Fragment {
         Request_time = bundle.getStringArrayList("request_time");
         parentsName = bundle.getStringArrayList("parentsName");
         diary_idx = bundle.getIntegerArrayList("diary_idx");
-
         ArrayList<InterviewDTO> inter = new ArrayList<InterviewDTO>();
         for(int i=0; i<diary_idx.size() ; i++){
             InterviewDTO dto = new InterviewDTO();

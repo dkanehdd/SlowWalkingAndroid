@@ -42,6 +42,11 @@ public class MenuList extends AppCompatActivity {
     ArrayList<Integer> diary_idx = new ArrayList<Integer>();
     ArrayList<String> Request_time = new ArrayList<String>() ;
     ArrayList<String> parentsName = new ArrayList<String>();
+
+    ArrayList<String> regidate = new ArrayList<String>() ;
+
+    ArrayList<String> name = new ArrayList<String>() ;
+    ArrayList<String> content = new ArrayList<String>() ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,16 +58,20 @@ public class MenuList extends AppCompatActivity {
 
         }
         new InterviewAsyncHttpRequest().execute( //1. 수락안된 인터뷰리스트 불러오기
-                "http://192.168.219.117:8080/slowwalking/android/interList",
+                "http://192.168.219.112:8080/slowwalking/android/interList",
                 "id="+id,
                 "flag="+flag
         );
         new DiaryAsyncHttpRequest().execute( //수락된 인터뷰 리스트 불러오기
-                "http://192.168.219.117:8080/slowwalking/android/diaryList",
+                "http://192.168.219.112:8080/slowwalking/android/diaryList",
                 "id="+id,
                 "flag="+flag
         );
-
+        new DiaryListAsync().execute( //수락된 인터뷰 리스트 불러오기
+                "http://192.168.219.112:8080/slowwalking/android/openCalendar",
+                "id="+id,
+                "flag="+flag
+        );
         fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -87,6 +96,11 @@ public class MenuList extends AppCompatActivity {
 
         menuFragment4 = new MenuFragment4();
         calendarFragment = new calendarFragment();
+        Bundle bundle5 = new Bundle();
+        bundle5.putStringArrayList("regidate", regidate);
+        bundle5.putStringArrayList("content", content);
+        bundle5.putStringArrayList("name", name);
+        calendarFragment.setArguments(bundle5);
 
         fragmentTransaction.replace(R.id.frameLayout, menuFragment1).commit();//첨 화면진입시 1번이 보여짐
 
@@ -301,6 +315,89 @@ public class MenuList extends AppCompatActivity {
                     }
                     Request_time.add(interview.get("request_time").toString());
                     diary_idx.add(Integer.parseInt(interview.get("idx").toString()));
+                }
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
+
+    class DiaryListAsync extends AsyncTask<String, Void, String> {
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+
+            StringBuffer receiveData = new StringBuffer();
+            try{
+                URL url = new URL(strings[0]);//파라미터1 : 요청 URL
+                HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+                connection.setRequestMethod("GET");
+                connection.setDoOutput(true);
+
+                OutputStream out = connection.getOutputStream();
+                out.write(strings[1].getBytes());
+                out.write("&".getBytes());
+                out.write(strings[2].getBytes());
+
+                out.flush();
+                out.close();
+
+                if(connection.getResponseCode()==HttpURLConnection.HTTP_OK){
+                    Log.i(TAG, "HTTP OK 성공");
+
+                    BufferedReader reader = new BufferedReader(
+                            new InputStreamReader(connection.getInputStream(),"UTF-8"));
+                    String responseData;
+                    while((responseData=reader.readLine())!=null){
+                        receiveData.append(responseData+"\n\r");
+                    }
+                    reader.close();
+                }
+                else{
+                    Log.i(TAG, connection.getResponseCode()+"");
+                    Log.i(TAG, "HTTP OK 안됨");
+                }
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+            //저장된 내용을 로그로 출력한후 onPostExecute()로 반환한다.
+            Log.i(TAG, receiveData.toString());
+            //서버에서 내려준 JSON정보를 저장후 반환
+            return receiveData.toString();
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+
+        //doInBackground()에서 반환값은 해당 메소드로 전달한다.
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+            StringBuffer sb = new StringBuffer();
+            try{
+                /*
+
+                 */
+                //JSON객체를 파싱
+                JSONObject jsonObject = new JSONObject(s);
+                JSONArray jsonArray = (JSONArray)jsonObject.get("lists");//lists로 배열을 먼저 얻어옴 []
+
+                for(int i=0 ; i<jsonArray.length() ; i++){//배열크기만큼반복
+                    JSONObject diary = (JSONObject) jsonArray.get(i); //배열에서 하나씩 가져옴
+                    regidate.add(diary.get("regidate").toString());
+                    content.add(diary.get("content").toString());
+                    name.add(diary.get("name").toString());
                 }
             }
             catch (Exception e){

@@ -19,18 +19,14 @@
             android:textSize="40sp">
         </TextView>
     </RelativeLayout>
-    <RelativeLayout
+    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/calendarView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="9">
-
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/listview5">
-
-        </ListView>
-    </RelativeLayout>
+        android:layout_weight="10"
+        app:mcv_selectionColor="#FF9800"
+        app:mcv_showOtherDates="defaults" />
 
 
 
