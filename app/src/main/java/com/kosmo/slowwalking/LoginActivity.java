@@ -48,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
                 String ip = getString(R.string.ip_config);
                 new AsyncHttpRequest().execute(
 
-                        "http://192.168.219.118:8080/slowwalking/android/memberLogin.do",
+                        "http://192.168.35.161:8080/slowwalking/android/memberLogin.do",
 
                         "id="+user_id.getText().toString(),
                         "pw="+user_pw.getText().toString()

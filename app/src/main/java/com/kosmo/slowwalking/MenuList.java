@@ -53,12 +53,12 @@ public class MenuList extends AppCompatActivity {
 
         }
         new InterviewAsyncHttpRequest().execute( //1. 수락안된 인터뷰리스트 불러오기
-                "http://192.168.219.118:8080/slowwalking/android/interList",
+                "http://192.168.219.117:8080/slowwalking/android/interList",
                 "id="+id,
                 "flag="+flag
         );
         new DiaryAsyncHttpRequest().execute( //수락된 인터뷰 리스트 불러오기
-                "http://192.168.219.118:8080/slowwalking/android/diaryList",
+                "http://192.168.219.117:8080/slowwalking/android/diaryList",
                 "id="+id,
                 "flag="+flag
         );

@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SlowWalking"
         android:usesCleartextTraffic="true">
-        <activity android:name=".WriteDiary"></activity>
+        <activity android:name=".SubMenuList"></activity>
+        <activity android:name=".WriteDiary" />
         <activity android:name=".ParentsRegister" />
         <activity android:name=".SitterRegister" />
         <activity android:name=".RegisterSelect" />
