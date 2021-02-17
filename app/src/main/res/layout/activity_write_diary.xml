@@ -13,13 +13,13 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:id="@+id/content">
     </EditText>
 
     <Button
+        android:id="@+id/writeAction"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="작성완료"
-        >
-    </Button>
+        android:text="작성완료"></Button>
 </LinearLayout>

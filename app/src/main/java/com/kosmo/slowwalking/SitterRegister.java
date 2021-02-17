@@ -77,9 +77,8 @@ public class SitterRegister extends AppCompatActivity {
                 첫번째는 요청URL, 두번째와 세번째는 서버로 전송할 파라미터이다.
                 각 입력상자에 입력된 내용을 가져와서 전달한다.
                  */
-                String ip = getString(R.string.ip_config);
                 new AsyncHttpServer().execute(
-                        "http://"+ip+":8080/slowwalking/android/joinAction",
+                        "http://192.168.219.112:8080/slowwalking/android/joinAction",
 
                         "id=" + id.getText().toString(),
                         "pw=" + pw.getText().toString(),
