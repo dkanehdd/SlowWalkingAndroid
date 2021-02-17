@@ -1,7 +1,9 @@
 package com.kosmo.slowwalking;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,19 +24,34 @@ import java.net.URL;
 
 public class LoginActivity extends AppCompatActivity {
     String TAG = "iKOSMO";
-
+    SharedPreferences.Editor editor;
     //전역변수
     EditText user_id, user_pw;
     ProgressDialog dialog;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        SharedPreferences pref = getSharedPreferences("login",
+                Activity.MODE_PRIVATE);
+        editor = pref.edit();
+
+        /*
+        getString()으로 저장된값을 가져와서 입력상자에 설정한다.
+        만약 저장된 값이 없을경우에는 디폴트값으로 두번째 인자에
+        지정된 값을 사용한다.
+         */
+        String id = pref.getString("id","");
+        String pwd = pref.getString("pwd","");
         //위젯얻어오기
         user_id = (EditText)findViewById(R.id.user_id);//아이디 입력상자
         user_pw = (EditText)findViewById(R.id.user_pw);//패스워드 입력상자
+
+        user_id.setText(id);
+        user_pw.setText(pwd);
+
+
         Button btnLogin = (Button)findViewById(R.id.btn_login);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,10 +62,8 @@ public class LoginActivity extends AppCompatActivity {
                 첫번째는 요청URL, 두번째와 세번째는 서버로 전송할 파라미터이다.
                 각 입력상자에 입력된 내용을 얻어와서 전달한다.
                  */
-                String ip = getString(R.string.ip_config);
                 new AsyncHttpRequest().execute(
-
-                        "http://192.168.219.118:8080/slowwalking/android/memberLogin.do",
+                        "http://192.168.219.112:8080/slowwalking/android/memberLogin.do",
 
                         "id="+user_id.getText().toString(),
                         "pw="+user_pw.getText().toString()
@@ -157,6 +172,10 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),
                             sb.toString(),
                             Toast.LENGTH_SHORT).show();
+                    editor.putString("id", user_id.getText().toString());
+                    editor.putString("pwd", user_pw.getText().toString());
+                    //저장후 반드시 commit()을 호출해야한다.
+                    editor.commit();
                     Intent intent = new Intent(LoginActivity.this,
                             MenuList.class);
                     //부가데이터를 넘기기 위한 준비. Map컬렉션같이 Key와 value로 설정
