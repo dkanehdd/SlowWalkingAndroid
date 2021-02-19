@@ -70,7 +70,6 @@ public class MenuFragment1 extends Fragment {
         submenuFragment1 = new SubMenuFragment1();
         submenuFragment2 = new SubMenuFragment2();
 
-
         Bundle bundle = getArguments();
         sitter_id = bundle.getStringArrayList("sitter_id");
         image_view = bundle.getStringArrayList("image_path");
@@ -81,7 +80,6 @@ public class MenuFragment1 extends Fragment {
         requeststarrate = bundle.getIntegerArrayList("starrate");
 
         submenuFragment1.setArguments(bundle);//프래그먼트에 세팅
-
 
 
 
