@@ -14,7 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -31,7 +33,7 @@ public class SubMenuFragment1 extends Fragment {
     ArrayList<Integer> requestaccount = new ArrayList<>();
     ArrayList<Integer> requeststarrate = new ArrayList<>();
 
-    private static CustomAdapter customAdapter;
+    private CustomAdapter customAdapter;
 
 
     @Nullable
@@ -64,7 +66,6 @@ public class SubMenuFragment1 extends Fragment {
             dto.setStarrate(requeststarrate.get(i));
             siter.add(dto);
         }
-
         ListView customListView = (ListView) viewGroup.findViewById(android.R.id.list);
         customAdapter  = new SubMenuFragment1.CustomAdapter(getContext(), siter);
         customListView.setAdapter(customAdapter);
@@ -81,12 +82,12 @@ public class SubMenuFragment1 extends Fragment {
 
 
         class ViewHolder {
-            public TextView image_view;
+            public ImageView image_view;
             public TextView requestname;
             public TextView requestaddress;
             public TextView requestage;
             public TextView requestaccount;
-            public TextView requeststarrate;
+            public RatingBar requeststarrate;
             public Button diary;
         }
 
@@ -96,8 +97,6 @@ public class SubMenuFragment1 extends Fragment {
             this.list = list;
         }
 
-        @SuppressLint("WrongViewCast")
-        @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             final ViewHolder viewHolder;
 
@@ -107,21 +106,20 @@ public class SubMenuFragment1 extends Fragment {
             }
 
             viewHolder = new SubMenuFragment1.CustomAdapter.ViewHolder();
-            viewHolder.image_view = (TextView) convertView.findViewById(R.id.imageview);
+            viewHolder.image_view = (ImageView) convertView.findViewById(R.id.imageview);
             viewHolder.requestname = (TextView) convertView.findViewById(R.id.request_name);
             viewHolder.requestaddress = (TextView) convertView.findViewById(R.id.request_address);
             viewHolder.requestage = (TextView) convertView.findViewById(R.id.request_age);
             viewHolder.requestaccount = (TextView) convertView.findViewById(R.id.request_account);
-            viewHolder.requeststarrate = (TextView) convertView.findViewById(R.id.request_starrate);
-            viewHolder.diary = (Button) convertView.findViewById(R.id.Btndiary);
+            viewHolder.requeststarrate = (RatingBar) convertView.findViewById(R.id.request_starrate);
+            viewHolder.diary = (Button) convertView.findViewById(R.id.BtnsitterView);
 
             final SitterListDTO dto = (SitterListDTO) list.get(position);
-            viewHolder.image_view.setText(dto.getImage_path());
             viewHolder.requestname.setText(dto.getName());
             viewHolder.requestaddress.setText(dto.getResidence1());
-            viewHolder.requestage.setText(dto.getAge());
-            viewHolder.requestaccount.setText(dto.getPay());
-            viewHolder.requeststarrate.setText(dto.getStarrate());
+            viewHolder.requestage.setText(Integer.toString(dto.getAge()));
+            viewHolder.requestaccount.setText(Integer.toString(dto.getPay()));
+            viewHolder.requeststarrate.setRating(dto.getStarrate());
             viewHolder.diary.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {

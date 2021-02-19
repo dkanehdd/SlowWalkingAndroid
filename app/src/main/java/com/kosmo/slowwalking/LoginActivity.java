@@ -64,7 +64,6 @@ public class LoginActivity extends AppCompatActivity {
                  */String addr = getString(R.string.server_addr);
                 new AsyncHttpRequest().execute(
                         addr+"memberLogin.do",
-
                         "id="+user_id.getText().toString(),
                         "pw="+user_pw.getText().toString()
                 );
