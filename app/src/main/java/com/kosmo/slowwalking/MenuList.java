@@ -87,7 +87,7 @@ public class MenuList extends AppCompatActivity {
                 "flag="+flag
         );
         new SitterList().execute( //시터 리스트 불러오기
-                "http://192.168.219.115:8080/slowwalking/android/SitterBoard_list"
+                "http://192.168.219.107:8080/slowwalking/android/SitterBoard_list"
 
         );
         
