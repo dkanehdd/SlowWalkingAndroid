@@ -71,8 +71,6 @@ public class MenuFragment1 extends Fragment {
         submenuFragment2 = new SubMenuFragment2();
 
 
-        new SitterList().execute( //수락된 인터뷰 리스트 불러오기
-                "http://192.168.219.107:8080/slowwalking/android/SitterBoard_list"
 
         Bundle bundle = getArguments();
         sitter_id = bundle.getStringArrayList("sitter_id");
@@ -86,17 +84,6 @@ public class MenuFragment1 extends Fragment {
         submenuFragment1.setArguments(bundle);//프래그먼트에 세팅
 
 
-        ArrayList<SitterListDTO> siter = new ArrayList<SitterListDTO>();
-        for(int i=0; i<sitter_id.size() ; i++){
-            SitterListDTO dto = new SitterListDTO();
-            dto.setImage_path(image_view.get(i));
-            dto.setName(requestname.get(i));
-            dto.setResidence1(requestaddress.get(i));
-            dto.setAge(requestage.get(i));
-            dto.setPay(requestaccount.get(i));
-            dto.setStarrate(requeststarrate.get(i));
-            siter.add(dto);
-        }
 
 
 

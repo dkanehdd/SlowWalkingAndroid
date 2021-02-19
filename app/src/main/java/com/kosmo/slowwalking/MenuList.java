@@ -114,9 +114,9 @@ public class MenuList extends AppCompatActivity {
 
 
         menuFragment4 = new MenuFragment4();
-        Bundle bundle4 = new Bundle();
-        bundle4.putString("id", id);
-        menuFragment4.setArguments(bundle4);
+        Bundle bundle6 = new Bundle();
+        bundle6.putString("id", id);
+        menuFragment4.setArguments(bundle6);
 
 
         calendarFragment = new calendarFragment();
