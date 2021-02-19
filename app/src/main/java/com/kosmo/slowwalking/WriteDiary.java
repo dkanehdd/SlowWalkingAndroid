@@ -47,8 +47,9 @@ public class WriteDiary extends AppCompatActivity {
                         .setPositiveButton("전송", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
+                                String addr = getString(R.string.server_addr);
                                 new DiaryWriteAction().execute(
-                                        "http://192.168.219.112:8080/slowwalking/android/sendDiary",
+                                        addr+"sendDiary",
                                         "idx=" + idx,
                                         "content="+content
                                 );

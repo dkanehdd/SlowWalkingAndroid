@@ -62,9 +62,9 @@ public class InterView extends LinearLayout {
         btnagree.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                String addr = getResources().getString(R.string.server_addr);
                 new InterviewAgree().execute(
-                        "http://192.168.219.112:8080/slowwalking/android/agreeAction",
+                        addr+"agreeAction",
                         "idx=" + idx,
                         "flag=" + flag
                 );
@@ -172,7 +172,7 @@ public class InterView extends LinearLayout {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 new InterviewAgree().execute(
-                        "http://192.168.219.112:8080/slowwalking/android/deleteAction",
+                        "http://192.168.219.107:8080/slowwalking/android/deleteAction",
                         "idx=" + idx,
                         "flag=" + flag
                 );
