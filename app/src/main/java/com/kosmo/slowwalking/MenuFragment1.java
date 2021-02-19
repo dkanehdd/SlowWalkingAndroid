@@ -71,6 +71,8 @@ public class MenuFragment1 extends Fragment {
         submenuFragment2 = new SubMenuFragment2();
 
 
+        new SitterList().execute( //수락된 인터뷰 리스트 불러오기
+                "http://192.168.219.107:8080/slowwalking/android/SitterBoard_list"
 
         Bundle bundle = getArguments();
         sitter_id = bundle.getStringArrayList("sitter_id");

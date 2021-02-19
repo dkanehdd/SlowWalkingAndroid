@@ -42,10 +42,10 @@ public class SubMenuFragment1 extends Fragment {
 
         Log.d(TAG, "MenuFragement1 > onCreateView()");
 
-        ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.menu_subfragment1, container, false);
+        ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.menu_subfragment2, container, false);
 
 
-        Bundle bundle = getArguments();
+        /*Bundle bundle = getArguments();
         sitter_id = bundle.getStringArrayList("sitter_id");
         image_view = bundle.getStringArrayList("image_path");
         requestname = bundle.getStringArrayList("name");
@@ -70,7 +70,7 @@ public class SubMenuFragment1 extends Fragment {
         customAdapter  = new SubMenuFragment1.CustomAdapter(getContext(), siter);
         customListView.setAdapter(customAdapter);
 
-
+*/
 
         return viewGroup;
 

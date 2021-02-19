@@ -61,10 +61,9 @@ public class LoginActivity extends AppCompatActivity {
                 이때 전달하는 파라미터는 총 3개이다.
                 첫번째는 요청URL, 두번째와 세번째는 서버로 전송할 파라미터이다.
                 각 입력상자에 입력된 내용을 얻어와서 전달한다.
-                 */
+                 */String addr = getString(R.string.server_addr);
                 new AsyncHttpRequest().execute(
-                        "http://192.168.219.115:8080/slowwalking/android/memberLogin.do",
-
+                        addr+"memberLogin.do",
                         "id="+user_id.getText().toString(),
                         "pw="+user_pw.getText().toString()
                 );

@@ -72,17 +72,17 @@ public class MenuList extends AppCompatActivity {
 
         }
         new InterviewAsyncHttpRequest().execute( //1. 수락안된 인터뷰리스트 불러오기
-                "http://192.168.219.115:8080/slowwalking/android/interList",
+                "http://192.168.219.107:8080/slowwalking/android/interList",
                 "id="+id,
                 "flag="+flag
         );
         new DiaryAsyncHttpRequest().execute( //수락된 인터뷰 리스트 불러오기
-                "http://192.168.219.115:8080/slowwalking/android/diaryList",
+                "http://192.168.219.107:8080/slowwalking/android/diaryList",
                 "id="+id,
                 "flag="+flag
         );
         new DiaryListAsync().execute( //수락된 인터뷰 리스트 불러오기
-                "http://192.168.219.115:8080/slowwalking/android/openCalendar",
+                "http://192.168.219.107:8080/slowwalking/android/openCalendar",
                 "id="+id,
                 "flag="+flag
         );
@@ -114,6 +114,11 @@ public class MenuList extends AppCompatActivity {
 
 
         menuFragment4 = new MenuFragment4();
+        Bundle bundle4 = new Bundle();
+        bundle4.putString("id", id);
+        menuFragment4.setArguments(bundle4);
+
+
         calendarFragment = new calendarFragment();
         Bundle bundle5 = new Bundle();
         bundle5.putStringArrayList("regidate", regidate);
