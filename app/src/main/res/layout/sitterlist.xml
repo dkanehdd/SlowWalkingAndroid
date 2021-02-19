@@ -21,7 +21,7 @@
 <LinearLayout
     android:layout_width="0dp"
     android:layout_height="wrap_content"
-    android:layout_weight="2"
+    android:layout_weight="3"
     android:orientation="vertical">
         <TextView
             android:id="@+id/request_name"
@@ -55,14 +55,14 @@
         android:text="TextView"
         android:textColor="@color/input_register_hint"
         android:textSize="24sp" />
-    <TextView
+    <RatingBar
         android:id="@+id/request_starrate"
-        android:layout_width="wrap_content"
+        android:numStars="5"
+        android:stepSize="1"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20px"
-        android:text="TextView"
-        android:textColor="@color/input_register_hint"
-        android:textSize="24sp" />
+        android:isIndicator="true"
+        android:layout_width="wrap_content"/>
+
 </LinearLayout>
         <Button
             android:layout_width="0dp"

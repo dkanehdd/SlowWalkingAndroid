@@ -78,7 +78,7 @@ public class SitterRegister extends AppCompatActivity {
                 각 입력상자에 입력된 내용을 가져와서 전달한다.
                  */
                 new AsyncHttpServer().execute(
-                        "http://192.168.219.112:8080/slowwalking/android/joinAction",
+                        "http://192.168.219.115:8080/slowwalking/android/joinAction",
 
                         "id=" + id.getText().toString(),
                         "pw=" + pw.getText().toString(),

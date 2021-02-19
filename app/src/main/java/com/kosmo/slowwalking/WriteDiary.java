@@ -48,7 +48,7 @@ public class WriteDiary extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 new DiaryWriteAction().execute(
-                                        "http://192.168.219.112:8080/slowwalking/android/sendDiary",
+                                        "http://192.168.219.115:8080/slowwalking/android/sendDiary",
                                         "idx=" + idx,
                                         "content="+content
                                 );
