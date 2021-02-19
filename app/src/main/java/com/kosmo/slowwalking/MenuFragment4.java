@@ -1,5 +1,6 @@
 package com.kosmo.slowwalking;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,20 +12,36 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.Toast;
+
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class MenuFragment4 extends Fragment {
 
     public static final String TAG = "ikosmo";
-    String[] idolGroup = {"프로필수정 ","내 의뢰서작성","내 의뢰서보기","내 구인현황","후기관리","이용권","포인트"};
+    String[] idolGroup = {"프로필보기","의뢰서작성","이용권","포인트"};
+    String id;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Log.d(TAG, "MenuFragement4 > onCreateView()");
 
         ViewGroup viewGroup = (ViewGroup)inflater.inflate(R.layout.menu_fragment4, container, false);
-        ListView listView = (ListView)viewGroup.findViewById(R.id.listview4);
+        ListView listView = (ListView)viewGroup.findViewById(android.R.id.list);
+
+        Bundle bundle = getArguments();
+        id = bundle.getString("id");
+
+
         MenuFragment4.MyAdapter myAdapter = new MenuFragment4.MyAdapter();
         listView.setAdapter(myAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -38,6 +55,8 @@ public class MenuFragment4 extends Fragment {
         });
         return viewGroup;
     }
+
+
     class MyAdapter extends BaseAdapter {
         @Override
         public int getCount() {
@@ -63,6 +82,8 @@ public class MenuFragment4 extends Fragment {
 
         }
     }
+
+
     
 }
 
