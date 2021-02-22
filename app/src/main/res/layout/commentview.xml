@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="아이디"
+        android:textSize="24sp"
+        android:id="@+id/send_id"
+        ></TextView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="쓴날짜"
+        android:textSize="15sp"
+        android:gravity=""
+        android:id="@+id/writedate"
+        android:layout_toRightOf="@+id/send_id"
+        android:layout_alignBaseline="@+id/send_id"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/comment"
+        android:text="후기"
+        android:textSize="30sp"
+        android:layout_below="@+id/send_id">
+    </TextView>
+
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="5"
+        android:stepSize="1"
+        android:isIndicator="true"
+        android:layout_below="@+id/comment"
+        android:id="@+id/starrate">
+    </RatingBar>
+
+
+</RelativeLayout>

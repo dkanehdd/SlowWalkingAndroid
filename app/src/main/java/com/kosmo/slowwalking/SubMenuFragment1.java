@@ -3,6 +3,7 @@ package com.kosmo.slowwalking;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -19,22 +20,31 @@ import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SubMenuFragment1 extends Fragment {
     public static final String TAG = "iKosmo";
 
-    ArrayList<String> sitter_id = new ArrayList<>();
-    ArrayList<String> image_view = new ArrayList<String>() ;
-    ArrayList<String> requestname = new ArrayList<String>();
-    ArrayList<String> requestaddress = new ArrayList<String>();
-    ArrayList<Integer> requestage = new ArrayList<>();
-    ArrayList<Integer> requestaccount = new ArrayList<>();
-    ArrayList<Integer> requeststarrate = new ArrayList<>();
-
+    ListView customListView;
     private CustomAdapter customAdapter;
+    ArrayList<SitterListDTO> siter;
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        new SitterList().execute( //시터 리스트 불러오기
+                "http://192.168.219.121:8080/slowwalking/android/SitterBoard_list"
 
+        );
+    }
 
     @Nullable
     @Override
@@ -45,36 +55,22 @@ public class SubMenuFragment1 extends Fragment {
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.menu_subfragment1, container, false);
 
 
-        Bundle bundle = getArguments();
-        sitter_id = bundle.getStringArrayList("sitter_id");
-        image_view = bundle.getStringArrayList("image_path");
-        requestname = bundle.getStringArrayList("name");
-        requestaddress = bundle.getStringArrayList("residence1");
-        requestage = bundle.getIntegerArrayList("age");
-        requestaccount = bundle.getIntegerArrayList("pay");
-        requeststarrate = bundle.getIntegerArrayList("starrate");
 
+        customListView = (ListView) viewGroup.findViewById(android.R.id.list);
 
-        ArrayList<SitterListDTO> siter = new ArrayList<SitterListDTO>();
-        for(int i=0; i<sitter_id.size() ; i++){
-            SitterListDTO dto = new SitterListDTO();
-            dto.setImage_path(image_view.get(i));
-            dto.setName(requestname.get(i));
-            dto.setResidence1(requestaddress.get(i));
-            dto.setAge(requestage.get(i));
-            dto.setPay(requestaccount.get(i));
-            dto.setStarrate(requeststarrate.get(i));
-            siter.add(dto);
-        }
-        ListView customListView = (ListView) viewGroup.findViewById(android.R.id.list);
-        customAdapter  = new SubMenuFragment1.CustomAdapter(getContext(), siter);
-        customListView.setAdapter(customAdapter);
 
 
 
         return viewGroup;
 
     }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+    }
+
     public class CustomAdapter extends ArrayAdapter {
 
         private Context context;
@@ -135,7 +131,91 @@ public class SubMenuFragment1 extends Fragment {
             return convertView;
         }
     }
+    class SitterList extends AsyncTask<String, Void, String> {
 
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+
+            StringBuffer receiveData = new StringBuffer();
+            try{
+                URL url = new URL(strings[0]);//파라미터1 : 요청 URL
+                HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+                connection.setRequestMethod("GET");
+                connection.setDoOutput(true);
+
+                OutputStream out = connection.getOutputStream();
+                out.flush();
+                out.close();
+
+                if(connection.getResponseCode()==HttpURLConnection.HTTP_OK){
+                    Log.i(TAG, "HTTP OK 성공");
+
+                    BufferedReader reader = new BufferedReader(
+                            new InputStreamReader(connection.getInputStream(),"UTF-8"));
+                    String responseData;
+                    while((responseData=reader.readLine())!=null){
+                        receiveData.append(responseData+"\n\r");
+                    }
+                    reader.close();
+                }
+                else{
+                    Log.i(TAG, connection.getResponseCode()+"");
+                    Log.i(TAG, "HTTP OK 안됨");
+                }
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+            //저장된 내용을 로그로 출력한후 onPostExecute()로 반환한다.
+            Log.i(TAG, receiveData.toString());
+            //서버에서 내려준 JSON정보를 저장후 반환
+            return receiveData.toString();
+        }
+
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+            StringBuffer sb = new StringBuffer();
+            try{
+                /*
+                {"lists":[{"idx":8,"parents_id":"dkanehdd","sitter_id":"dkanehd","request_time":"15:00 ~ 20:00",
+                "parents_agree":"T","sitter_agree":"T","request_idx":10,"parents_name":null,"sitter_name":null},
+                {"idx":7,"parents_id":"kosmo3","sitter_id":"dkanehd","request_time":"18:00 ~ 21:00","parents_agree":"T",
+                "sitter_agree":"T","request_idx":9,"parents_name":null,"sitter_name":null}]}
+                 */
+                //JSON객체를 파싱
+                JSONObject jsonObject = new JSONObject(s);
+                JSONArray jsonArray = (JSONArray)jsonObject.get("lists");//lists로 배열을 먼저 얻어옴 []
+                siter = new ArrayList<SitterListDTO>();
+                for(int i=0 ; i<jsonArray.length() ; i++){//배열크기만큼반복
+                    JSONObject sitterview = (JSONObject) jsonArray.get(i); //배열에서 하나씩 가져옴
+                    SitterListDTO dto = new SitterListDTO();
+                    dto.setName(sitterview.get("name").toString());//가져와서 컬렉션에 저장
+                    dto.setResidence1(sitterview.get("residence1").toString());
+                    dto.setImage_path(sitterview.get("image_path").toString());
+                    dto.setAge(Integer.parseInt(sitterview.get("age").toString()));
+                    dto.setPay(Integer.parseInt(sitterview.get("pay").toString()));
+                    dto.setStarrate(Integer.parseInt(sitterview.get("starrate").toString()));
+                    siter.add(dto);
+                }
+                customAdapter  = new SubMenuFragment1.CustomAdapter(getContext(), siter);
+                customListView.setAdapter(customAdapter);
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
 
 
 

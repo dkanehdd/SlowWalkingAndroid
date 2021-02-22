@@ -59,8 +59,8 @@
         android:id="@+id/request_starrate"
         android:numStars="5"
         android:stepSize="1"
-        android:layout_height="wrap_content"
         android:isIndicator="true"
+        android:layout_height="wrap_content"
         android:layout_width="wrap_content"/>
 
 </LinearLayout>
