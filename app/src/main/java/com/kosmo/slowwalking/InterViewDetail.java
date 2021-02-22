@@ -38,7 +38,21 @@ import java.util.List;
 public class InterViewDetail extends AppCompatActivity {
 
     public static final String TAG = "iKosmo";
-
+    ImageView imageview;
+    TextView sittername;
+    TextView request_intro;
+    TextView request_cctv;
+    TextView request_personal;
+    TextView prequest_licenserent;
+    TextView request_time;
+    TextView request_date;
+    TextView request_address1;
+    TextView request_address2;
+    TextView request_address3;
+    TextView request_age;
+    TextView request_pay;
+    TextView request_gender;
+    RatingBar rating;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,56 +61,34 @@ public class InterViewDetail extends AppCompatActivity {
 
         final Intent intent = getIntent();
         String Sitter_id = intent.getStringExtra("sitter_id");
-        String image_view = intent.getStringExtra("image_path");
-        String requestname = intent.getStringExtra("name");
-        String requestintro = intent.getStringExtra("introduction");
-        String requestcctv = intent.getStringExtra("cctv_agree");
-        String requestpersnal = intent.getStringExtra("personality_check");
-        String requestlicense = intent.getStringExtra("license_check");
-        String requestactivity = intent.getStringExtra("activity_time");
-        String requestdate = intent.getStringExtra("activity_date");
-        String requestaddress1 = intent.getStringExtra("residence1");
-        String requestaddress2 = intent.getStringExtra("residence2");
-        String requestaddress3 = intent.getStringExtra("residence3");
-        int requestage = intent.getIntExtra("age", 0);
-        int requestpay = intent.getIntExtra("pay", 0);
-        String requestgender = intent.getStringExtra("gender");
-        int requeststarrate = intent.getIntExtra("starrate", 0);
 
-        ImageView imageview = (ImageView) findViewById(R.id.imageview);
-        TextView sittername = (TextView) findViewById(R.id.request_name);
-        TextView request_intro = (TextView) findViewById(R.id.request_intro);
-        TextView request_cctv = (TextView) findViewById(R.id.request_cctv);
-        TextView request_personal = (TextView) findViewById(R.id.request_personal);
-        TextView prequest_licenserent = (TextView) findViewById(R.id.request_license);
-        TextView request_time = (TextView) findViewById(R.id.request_activity);
-        TextView request_date = (TextView) findViewById(R.id.request_date);
-        TextView request_address1 = (TextView) findViewById(R.id.request_address1);
-        TextView request_address2 = (TextView) findViewById(R.id.request_address2);
-        TextView request_address3 = (TextView) findViewById(R.id.request_address3);
-        TextView request_age = (TextView) findViewById(R.id.request_age);
-        TextView request_pay = (TextView) findViewById(R.id.request_pay);
-        TextView request_gender = (TextView) findViewById(R.id.request_gender);
-        RatingBar rating = (RatingBar) findViewById(R.id.request_starrate);
+        new SitterDetail().execute( //시터 리스트 불러오기
+                "http://192.168.219.121:8080/slowwalking/android/SitterBoard_view",
+                "id="+Sitter_id
+        );
 
-        imageview.setImageDrawable(Drawable.createFromPath(image_view));
-        sittername.setText(requestname);
-        request_intro.setText(requestintro);
-        request_cctv.setText(requestcctv);
-        request_personal.setText(requestpersnal);
-        prequest_licenserent.setText(requestlicense);
-        request_time.setText(requestactivity);
-        request_date.setText(requestdate);
-        request_address1.setText(requestaddress1);
-        request_address2.setText(requestaddress2);
-        request_address3.setText(requestaddress1);
-        request_age.setText(Integer.toString(requestage));
-        request_pay.setText(Integer.toString(requestpay));
-        request_gender.setText(requestgender);
-        rating.setRating(requeststarrate);
+        imageview = (ImageView) findViewById(R.id.imageview);
+        sittername = (TextView) findViewById(R.id.request_name);
+        request_intro = (TextView) findViewById(R.id.request_intro);
+        request_cctv = (TextView) findViewById(R.id.request_cctv);
+        request_personal = (TextView) findViewById(R.id.request_personal);
+        prequest_licenserent = (TextView) findViewById(R.id.request_license);
+        request_time = (TextView) findViewById(R.id.request_activity);
+        request_date = (TextView) findViewById(R.id.request_date);
+        request_address1 = (TextView) findViewById(R.id.request_address1);
+        request_address2 = (TextView) findViewById(R.id.request_address2);
+        request_address3 = (TextView) findViewById(R.id.request_address3);
+        request_age = (TextView) findViewById(R.id.request_age);
+        request_pay = (TextView) findViewById(R.id.request_pay);
+        request_gender = (TextView) findViewById(R.id.request_gender);
+        rating = (RatingBar) findViewById(R.id.request_starrate);
+
+
 
     }
 
+
+    //상세시터리스트 불러오기
     class SitterDetail extends AsyncTask<String, Void, String> {
 
 
@@ -109,41 +101,79 @@ public class InterViewDetail extends AppCompatActivity {
         protected String doInBackground(String... strings) {
 
             StringBuffer receiveData = new StringBuffer();
-            try {
+            try{
                 URL url = new URL(strings[0]);//파라미터1 : 요청 URL
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestMethod("POST");
+                HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+                connection.setRequestMethod("GET");
                 connection.setDoOutput(true);
 
                 OutputStream out = connection.getOutputStream();
                 out.write(strings[1].getBytes());
-                out.write("&".getBytes());
-                out.write(strings[2].getBytes());
-
                 out.flush();
                 out.close();
 
-                if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                if(connection.getResponseCode()==HttpURLConnection.HTTP_OK){
                     Log.i(TAG, "HTTP OK 성공");
 
                     BufferedReader reader = new BufferedReader(
-                            new InputStreamReader(connection.getInputStream(), "UTF-8"));
+                            new InputStreamReader(connection.getInputStream(),"UTF-8"));
                     String responseData;
-                    while ((responseData = reader.readLine()) != null) {
-                        receiveData.append(responseData + "\n\r");
+                    while((responseData=reader.readLine())!=null){
+                        receiveData.append(responseData+"\n\r");
                     }
                     reader.close();
-                } else {
-                    Log.i(TAG, connection.getResponseCode() + "");
+                }
+                else{
+                    Log.i(TAG, connection.getResponseCode()+"");
                     Log.i(TAG, "HTTP OK 안됨");
                 }
-            } catch (Exception e) {
+            }
+            catch (Exception e){
                 e.printStackTrace();
             }
             //저장된 내용을 로그로 출력한후 onPostExecute()로 반환한다.
             Log.i(TAG, receiveData.toString());
             //서버에서 내려준 JSON정보를 저장후 반환
             return receiveData.toString();
+        }
+
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+            StringBuffer sb = new StringBuffer();
+            try{
+                /*
+                {"lists":[{"idx":8,"parents_id":"dkanehdd","sitter_id":"dkanehd","request_time":"15:00 ~ 20:00",
+                "parents_agree":"T","sitter_agree":"T","request_idx":10,"parents_name":null,"sitter_name":null},
+                {"idx":7,"parents_id":"kosmo3","sitter_id":"dkanehd","request_time":"18:00 ~ 21:00","parents_agree":"T",
+                "sitter_agree":"T","request_idx":9,"parents_name":null,"sitter_name":null}]}
+                 */
+                //JSON객체를 파싱
+                JSONObject jsonObject = new JSONObject(s);
+                JSONObject sitterdetailview = (JSONObject)jsonObject.get("dto");//lists로 배열을 먼저 얻어옴 []
+
+                sittername.setText(sitterdetailview.get("name").toString());
+                request_intro.setText(sitterdetailview.get("introduction").toString());
+                request_cctv.setText(sitterdetailview.get("cctv_agree").toString());
+                request_personal.setText(sitterdetailview.get("personality_check").toString());
+                prequest_licenserent.setText(sitterdetailview.get("license_check").toString());
+                request_time.setText(sitterdetailview.get("activity_time").toString());
+                request_date.setText(sitterdetailview.get("activity_date").toString());
+                request_address1.setText(sitterdetailview.get("residence1").toString());
+                request_address2.setText(sitterdetailview.get("residence2").toString());
+                request_address3.setText(sitterdetailview.get("residence3").toString());
+                request_age.setText(sitterdetailview.get("age").toString());
+                request_pay.setText(sitterdetailview.get("pay").toString());
+                request_gender.setText(sitterdetailview.get("gender").toString());
+                rating.setRating(Integer.parseInt(sitterdetailview.get("starrate").toString()));
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
         }
     }
 }

@@ -42,15 +42,13 @@ public class MenuFragment1 extends Fragment {
     SubMenuFragment1 submenuFragment1;
     SubMenuFragment2 submenuFragment2;
 
-
-    ArrayList<String> sitter_id = new ArrayList<>();
-    ArrayList<String> image_view = new ArrayList<String>() ;
-    ArrayList<String> requestname = new ArrayList<String>();
-    ArrayList<String> requestaddress = new ArrayList<String>();
-    ArrayList<Integer> requestage = new ArrayList<>();
-    ArrayList<Integer> requestaccount = new ArrayList<>();
-    ArrayList<Integer> requeststarrate = new ArrayList<>();
-
+    String id;
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle bundle = getArguments();
+        id = bundle.getString("sitter_id");
+    }
 
     @Nullable
     @Override
@@ -61,6 +59,7 @@ public class MenuFragment1 extends Fragment {
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.menu_fragment1, container, false);
        // ListView listView = (ListView) viewGroup.findViewById(R.id.listview1);
 
+
         Button button1 = (Button)viewGroup.findViewById(R.id.btnsubFirstFragment);
         Button button2 = (Button)viewGroup.findViewById(R.id.btnsubSecondFragment);
         button1.setOnClickListener(listener);
@@ -70,21 +69,9 @@ public class MenuFragment1 extends Fragment {
         submenuFragment1 = new SubMenuFragment1();
         submenuFragment2 = new SubMenuFragment2();
 
-        Bundle bundle = getArguments();
-        sitter_id = bundle.getStringArrayList("sitter_id");
-        image_view = bundle.getStringArrayList("image_path");
-        requestname = bundle.getStringArrayList("name");
-        requestaddress = bundle.getStringArrayList("residence1");
-        requestage = bundle.getIntegerArrayList("age");
-        requestaccount = bundle.getIntegerArrayList("pay");
-        requeststarrate = bundle.getIntegerArrayList("starrate");
-
-        submenuFragment1.setArguments(bundle);//프래그먼트에 세팅
-
-
-
-
-
+        Bundle bundle4 = new Bundle();
+        bundle4.putString("sitter_id", id);
+        submenuFragment1.setArguments(bundle4);//프래그먼트에 세팅
         getChildFragmentManager().beginTransaction().replace(R.id.mainLayout, submenuFragment1).commit();
 
 
