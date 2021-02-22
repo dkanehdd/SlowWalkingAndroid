@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:id="@+id/interDetailviewItems">
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:orientation="vertical">
+
+            <!--이미지-->
+            <ImageView
+                android:id="@+id/imageview"
+                android:layout_width="match_parent"
+                android:layout_height="171dp"
+                android:layout_weight="8"
+                android:text="TextView"
+                android:textSize="30sp" />
+
+
+            <!--아이디-->
+
+            <!--이름-->
+            <TextView
+                android:id="@+id/request_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textColor="@color/btn_logut_bg"
+                android:textSize="24sp" />
+            <!--자기소개-->
+            <TextView
+                android:id="@+id/request_intro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textColor="@color/bg_main"
+                android:textSize="24sp" />
+            <!--CCTV-->
+            <TextView
+                android:id="@+id/request_cctv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20px"
+                android:text="TextView"
+                android:textColor="@color/input_register_hint"
+                android:textSize="24sp" />
+            <!--인적성검사-->
+            <TextView
+                android:id="@+id/request_personal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20px"
+                android:text="TextView"
+                android:textColor="@color/input_register_hint"
+                android:textSize="24sp" />
+            <!--자격증-->
+            <TextView
+                android:id="@+id/request_license"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20px"
+                android:text="TextView"
+                android:textColor="@color/input_register_hint"
+                android:textSize="24sp" />
+            <!--활동시간1,2-->
+            <TextView
+                android:id="@+id/request_activity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20px"
+                android:text="TextView"
+                android:textColor="@color/input_register_hint"
+                android:textSize="24sp" />
+            <TextView
+                android:id="@+id/request_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20px"
+                android:text="TextView"
+                android:textColor="@color/input_register_hint"
+                android:textSize="24sp" />
+            <!--주소1,2,3 다 불러오기 -->
+            <TextView
+                android:id="@+id/request_address1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20px"
+                android:text="TextView"
+                android:textColor="@color/input_register_hint"
+                android:textSize="24sp" />
+            <TextView
+                android:id="@+id/request_address2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20px"
+                android:text="TextView"
+                android:textColor="@color/input_register_hint"
+                android:textSize="24sp" />
+            <TextView
+                android:id="@+id/request_address3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20px"
+                android:text="TextView"
+                android:textColor="@color/input_register_hint"
+                android:textSize="24sp" />
+
+            <!--나이-->
+            <TextView
+                android:id="@+id/request_age"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20px"
+                android:text="TextView"
+                android:textColor="@color/input_register_hint"
+                android:textSize="24sp" />
+
+            <!--페이-->
+            <TextView
+                android:id="@+id/request_pay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20px"
+                android:text="TextView"
+                android:textColor="@color/input_register_hint"
+                android:textSize="24sp" />
+
+            <!--성별-->
+            <TextView
+                android:id="@+id/request_gender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20px"
+                android:text="TextView"
+                android:textColor="@color/input_register_hint"
+                android:textSize="24sp" />
+            <!--별점-->
+            <RatingBar
+                android:id="@+id/request_starrate"
+                android:numStars="5"
+                android:stepSize="1"
+                android:layout_height="wrap_content"
+                android:isIndicator="true"
+                android:layout_width="wrap_content"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="인터뷰신청"
+                android:id="@+id/BtninterView">
+            </Button>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
