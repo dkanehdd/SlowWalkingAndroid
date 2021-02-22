@@ -32,6 +32,7 @@
         <activity android:name=".RegisterSelect" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".MenuList" />
+        <activity android:name=".InterViewDetail" />
     </application>
 
 </manifest>

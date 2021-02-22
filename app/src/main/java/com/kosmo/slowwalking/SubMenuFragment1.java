@@ -35,6 +35,17 @@ public class SubMenuFragment1 extends Fragment {
     public static final String TAG = "iKosmo";
 
     ListView customListView;
+
+    //시터리스트 상세
+    ArrayList<String> requestintro = new ArrayList<String>();
+    ArrayList<String> requestcctv = new ArrayList<String>();
+    ArrayList<String> requestpersnal = new ArrayList<String>();
+    ArrayList<String> requestlicense = new ArrayList<String>();
+    ArrayList<String> requestactivity = new ArrayList<String>();
+    ArrayList<String> requestdate = new ArrayList<String>();
+    ArrayList<String> requestaddress2 = new ArrayList<String>();
+    ArrayList<String> requestaddress3 = new ArrayList<String>();
+    ArrayList<String> requestgender = new ArrayList<>();
     private CustomAdapter customAdapter;
     ArrayList<SitterListDTO> siter;
     @Override
@@ -57,6 +68,50 @@ public class SubMenuFragment1 extends Fragment {
 
 
         customListView = (ListView) viewGroup.findViewById(android.R.id.list);
+
+        Bundle bundle = getArguments();
+
+        requestintro = bundle.getStringArrayList("introduction");
+        requestcctv = bundle.getStringArrayList("cctv_agree");
+        requestpersnal = bundle.getStringArrayList("personality_check");
+        requestlicense = bundle.getStringArrayList("license_check");
+        requestactivity = bundle.getStringArrayList("activity_time");
+        requestdate = bundle.getStringArrayList("activity_date");
+        requestaddress2 = bundle.getStringArrayList("residence2");
+        requestaddress3 = bundle.getStringArrayList("residence3");
+        requestgender = bundle.getStringArrayList("gender");
+
+
+
+
+
+
+
+
+        ArrayList<SitterListDTO> siter = new ArrayList<SitterListDTO>();
+        for(int i=0; i<sitter_id.size() ; i++){
+            SitterListDTO dto = new SitterListDTO();
+            dto.setImage_path(image_view.get(i));
+            dto.setName(requestname.get(i));
+            dto.setResidence1(requestaddress.get(i));
+            dto.setAge(requestage.get(i));
+            dto.setPay(requestaccount.get(i));
+            dto.setStarrate(requeststarrate.get(i));
+
+            dto.setIntroduction(requestintro.get(i));
+            dto.setCctv_agree(requestcctv.get(i));
+            dto.setPersonality_check(requestpersnal.get(i));
+            dto.setLicense_check(requestlicense.get(i));
+            dto.setActivity_time(requestactivity.get(i));
+            dto.setActivity_date(requestdate.get(i));
+            dto.setResidence2(requestaddress2.get(i));
+            dto.setResidence3(requestaddress3.get(i));
+            dto.setGender(requestgender.get(i));
+            siter.add(dto);
+        }
+        ListView customListView = (ListView) viewGroup.findViewById(android.R.id.list);
+        customAdapter  = new SubMenuFragment1.CustomAdapter(getContext(), siter);
+        customListView.setAdapter(customAdapter);
 
 
 
@@ -120,9 +175,23 @@ public class SubMenuFragment1 extends Fragment {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(v.getContext(),
-                            WriteDiary.class);
-                   // intent.putExtra("name", dto.getParents_name());
-                    //intent.putExtra("idx", dto.getRequest_idx());
+                            InterViewDetail.class);
+                   intent.putExtra("sitter_id", dto.getSitter_id());
+                   intent.putExtra("image_path", dto.getImage_path());
+                   intent.putExtra("name", dto.getName());
+                   intent.putExtra("introduction", dto.getIntroduction());
+                   intent.putExtra("cctv_agree", dto.getCctv_agree());
+                   intent.putExtra("personality_check", dto.getPersonality_check());
+                   intent.putExtra("license_check", dto.getLicense_check());
+                   intent.putExtra("activity_time", dto.getActivity_time());
+                   intent.putExtra("activity_date", dto.getActivity_date());
+                   intent.putExtra("residence1", dto.getResidence1());
+                   intent.putExtra("residence2", dto.getResidence2());
+                   intent.putExtra("residence3", dto.getResidence3());
+                   intent.putExtra("age", dto.getAge());
+                   intent.putExtra("pay", dto.getPay());
+                   intent.putExtra("gender", dto.getGender());
+                   intent.putExtra("starrate", dto.getStarrate());
                     //액티비티 실행
                     startActivity(intent);
                 }

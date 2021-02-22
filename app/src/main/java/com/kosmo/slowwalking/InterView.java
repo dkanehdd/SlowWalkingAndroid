@@ -172,7 +172,7 @@ public class InterView extends LinearLayout {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 new InterviewAgree().execute(
-                        "http://192.168.219.121:8080/slowwalking/android/deleteAction",
+                        "http://192.168.219.104:8080/slowwalking/android/deleteAction",
                         "idx=" + idx,
                         "flag=" + flag
                 );
