@@ -1,7 +1,6 @@
 package com.kosmo.slowwalking;
 
-public class SitterListDTO {
-
+public class InterDetailDTO {
     private String sitter_id;
     private String cctv_agree;
     private String introduction;
@@ -105,11 +104,11 @@ public class SitterListDTO {
         this.residence3 = residence3;
     }
 
-    public int getPay() {
+    public Integer getPay() {
         return pay;
     }
 
-    public void setPay(int pay) {
+    public void setPay(Integer pay) {
         this.pay = pay;
     }
 
@@ -152,7 +151,6 @@ public class SitterListDTO {
     public void setPremiumdate(String premiumdate) {
         this.premiumdate = premiumdate;
     }
-
     public String getName() {
         return name;
     }
