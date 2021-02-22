@@ -6,17 +6,17 @@
     <uses-permission android:name="android.permission.INTERNET" /> <!-- 저장장치에 접근하기 위한 권한 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/slow_logo"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@drawable/slow_logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.SlowWalking"
-        android:usesCleartextTraffic="true"
-        android:requestLegacyExternalStorage="true"
-        >
-
+        android:usesCleartextTraffic="true">
+        <activity android:name=".CommentActivity"></activity>
         <activity android:name=".Intro">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,7 +25,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-        <activity android:name=".SubMenuList"/>
+        <activity android:name=".SubMenuList" />
         <activity android:name=".WriteDiary" />
         <activity android:name=".ParentsRegister" />
         <activity android:name=".SitterRegister" />

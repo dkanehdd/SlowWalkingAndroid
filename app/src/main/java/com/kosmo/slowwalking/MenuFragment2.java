@@ -30,6 +30,17 @@ public class MenuFragment2 extends ListFragment {
     ArrayList<String> request_time;
     ArrayList<Integer> interview_idx;
     String flag;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle bundle = getArguments();
+        interviewID = bundle.getStringArrayList("interviewID");
+        request_time = bundle.getStringArrayList("request_time");
+        interview_idx = bundle.getIntegerArrayList("interview_idx");
+        flag= bundle.getString("flag");
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -39,11 +50,7 @@ public class MenuFragment2 extends ListFragment {
         ViewGroup viewGroup = (ViewGroup)inflater.inflate(R.layout.menu_fragment2, container, false);
         ListView listView = (ListView)viewGroup.findViewById(android.R.id.list);
 
-        Bundle bundle = getArguments();
-        interviewID = bundle.getStringArrayList("interviewID");
-        request_time = bundle.getStringArrayList("request_time");
-        interview_idx = bundle.getIntegerArrayList("interview_idx");
-        flag= bundle.getString("flag");
+
 
         MyAdapter myAdapter = new MyAdapter();
         listView.setAdapter(myAdapter);

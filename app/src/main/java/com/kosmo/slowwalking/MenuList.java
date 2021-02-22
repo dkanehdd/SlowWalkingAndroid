@@ -51,16 +51,6 @@ public class MenuList extends AppCompatActivity {
     ArrayList<String> name = new ArrayList<String>() ;
     ArrayList<String> content = new ArrayList<String>() ;
 
-
-    //시터리스트
-    ArrayList<String> sitter_id = new ArrayList<>();
-    ArrayList<String> image_view = new ArrayList<String>() ;
-    ArrayList<String> requestname = new ArrayList<String>();
-    ArrayList<String> requestaddress = new ArrayList<String>();
-    ArrayList<Integer> requestage = new ArrayList<>();
-    ArrayList<Integer> requestaccount = new ArrayList<>();
-    ArrayList<Integer> requeststarrate = new ArrayList<>();
-
     //시터리스트 상세
     ArrayList<String> requestintro = new ArrayList<String>();
     ArrayList<String> requestcctv = new ArrayList<String>();
@@ -98,11 +88,6 @@ public class MenuList extends AppCompatActivity {
                 "id="+id,
                 "flag="+flag
         );
-        new SitterList().execute( //시터 리스트 불러오기
-                "http://192.168.219.119:8080/slowwalking/android/SitterBoard_list"
-
-        );
-
         new SitterDetail().execute( //시터 리스트 불러오기
                 "http://192.168.219.119:8080/slowwalking/android/SitterBoard_list"
 
@@ -134,6 +119,7 @@ public class MenuList extends AppCompatActivity {
         menuFragment4 = new MenuFragment4();
         Bundle bundle6 = new Bundle();
         bundle6.putString("id", id);
+        bundle6.putString("flag", flag);
         menuFragment4.setArguments(bundle6);
 
 
@@ -463,95 +449,6 @@ public class MenuList extends AppCompatActivity {
                     regidate.add(diary.get("regidate").toString());
                     content.add(diary.get("content").toString());
                     name.add(diary.get("name").toString());
-                }
-            }
-            catch (Exception e){
-                e.printStackTrace();
-            }
-        }
-    }
-
-    //시터리스트 불러오기
-    class SitterList extends AsyncTask<String, Void, String> {
-
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected String doInBackground(String... strings) {
-
-            StringBuffer receiveData = new StringBuffer();
-            try{
-                URL url = new URL(strings[0]);//파라미터1 : 요청 URL
-                HttpURLConnection connection = (HttpURLConnection)url.openConnection();
-                connection.setRequestMethod("GET");
-                connection.setDoOutput(true);
-
-                OutputStream out = connection.getOutputStream();
-                out.flush();
-                out.close();
-
-                if(connection.getResponseCode()==HttpURLConnection.HTTP_OK){
-                    Log.i(TAG, "HTTP OK 성공");
-
-                    BufferedReader reader = new BufferedReader(
-                            new InputStreamReader(connection.getInputStream(),"UTF-8"));
-                    String responseData;
-                    while((responseData=reader.readLine())!=null){
-                        receiveData.append(responseData+"\n\r");
-                    }
-                    reader.close();
-                }
-                else{
-                    Log.i(TAG, connection.getResponseCode()+"");
-                    Log.i(TAG, "HTTP OK 안됨");
-                }
-            }
-            catch (Exception e){
-                e.printStackTrace();
-            }
-            //저장된 내용을 로그로 출력한후 onPostExecute()로 반환한다.
-            Log.i(TAG, receiveData.toString());
-            //서버에서 내려준 JSON정보를 저장후 반환
-            return receiveData.toString();
-        }
-
-        protected void onProgressUpdate(Void... values) {
-            super.onProgressUpdate(values);
-        }
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-
-            StringBuffer sb = new StringBuffer();
-            try{
-                /*
-                {"lists":[{"idx":8,"parents_id":"dkanehdd","sitter_id":"dkanehd","request_time":"15:00 ~ 20:00",
-                "parents_agree":"T","sitter_agree":"T","request_idx":10,"parents_name":null,"sitter_name":null},
-                {"idx":7,"parents_id":"kosmo3","sitter_id":"dkanehd","request_time":"18:00 ~ 21:00","parents_agree":"T",
-                "sitter_agree":"T","request_idx":9,"parents_name":null,"sitter_name":null}]}
-                 */
-                //JSON객체를 파싱
-                JSONObject jsonObject = new JSONObject(s);
-                JSONArray jsonArray = (JSONArray)jsonObject.get("lists");//lists로 배열을 먼저 얻어옴 []
-
-                for(int i=0 ; i<jsonArray.length() ; i++){//배열크기만큼반복
-                    JSONObject sitterview = (JSONObject) jsonArray.get(i); //배열에서 하나씩 가져옴
-                    requestname.add(sitterview.get("name").toString());//가져와서 컬렉션에 저장
-                    requestintro.add(sitterview.get("name").toString());//가져와서 컬렉션에 저장
-                    requestname.add(sitterview.get("name").toString());//가져와서 컬렉션에 저장
-                    requestname.add(sitterview.get("name").toString());//가져와서 컬렉션에 저장
-                    requestname.add(sitterview.get("name").toString());//가져와서 컬렉션에 저장
-                    requestname.add(sitterview.get("name").toString());//가져와서 컬렉션에 저장
-                    requestaddress.add(sitterview.get("residence1").toString());
-                    image_view.add(sitterview.get("image_path").toString());
-                    sitter_id.add(sitterview.get("sitter_id").toString());
-                    requestage.add(Integer.parseInt(sitterview.get("age").toString()));
-                    requestaccount.add(Integer.parseInt(sitterview.get("pay").toString()));
-                    requeststarrate.add(Integer.parseInt(sitterview.get("starrate").toString()));
                 }
             }
             catch (Exception e){
