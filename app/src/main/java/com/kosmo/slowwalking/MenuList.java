@@ -68,6 +68,7 @@ public class MenuList extends AppCompatActivity {
     ArrayList<String> requestlicense = new ArrayList<String>();
     ArrayList<String> requestactivity = new ArrayList<String>();
     ArrayList<String> requestdate = new ArrayList<String>();
+    ArrayList<String> requestaddress1 = new ArrayList<String>();
     ArrayList<String> requestaddress2 = new ArrayList<String>();
     ArrayList<String> requestaddress3 = new ArrayList<String>();
     ArrayList<Integer> requestpay = new ArrayList<>();
