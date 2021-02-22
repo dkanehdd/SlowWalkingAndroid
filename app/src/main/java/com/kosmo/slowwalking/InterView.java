@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,6 +30,7 @@ import java.net.URL;
 public class InterView extends LinearLayout {
     TextView textView1;
     TextView textView2;
+    Button btnchat;
     Button btnagree;
     Button btndelete;
     LinearLayout interviewItem;
@@ -45,6 +47,7 @@ public class InterView extends LinearLayout {
         interviewItem = findViewById(R.id.interviewItems);
         textView1 = findViewById(R.id.parent_id);
         textView2 = findViewById(R.id.request_time);
+        btnchat = findViewById(R.id.btnchat);
         btnagree = findViewById(R.id.Btnagree);
         btndelete = findViewById(R.id.Btndelete);
     }
@@ -57,7 +60,8 @@ public class InterView extends LinearLayout {
     public void setPhone(String Phone) {
         textView2.setText(Phone);
     }
-
+    public void setBtnchat(String idx, String sitter, String parents){
+    }
     public void setAgree(int idx, String flag) {
         btnagree.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -171,8 +175,9 @@ public class InterView extends LinearLayout {
                 .setPositiveButton("삭제", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                String addr = getResources().getString(R.string.server_addr);
                 new InterviewAgree().execute(
-                        "http://192.168.219.121:8080/slowwalking/android/deleteAction",
+                        addr+"deleteAction",
                         "idx=" + idx,
                         "flag=" + flag
                 );
