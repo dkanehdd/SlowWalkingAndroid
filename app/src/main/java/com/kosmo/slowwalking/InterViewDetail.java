@@ -38,6 +38,8 @@ import java.util.List;
 public class InterViewDetail extends AppCompatActivity {
 
     public static final String TAG = "iKosmo";
+
+
     ImageView imageview;
     TextView sittername;
     TextView request_intro;
@@ -53,6 +55,7 @@ public class InterViewDetail extends AppCompatActivity {
     TextView request_pay;
     TextView request_gender;
     RatingBar rating;
+    Button interView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,10 +85,117 @@ public class InterViewDetail extends AppCompatActivity {
         request_pay = (TextView) findViewById(R.id.request_pay);
         request_gender = (TextView) findViewById(R.id.request_gender);
         rating = (RatingBar) findViewById(R.id.request_starrate);
+        interView = (Button) findViewById(R.id.BtninterView);
 
 
+        interView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                builder.setTitle("알림");
+                builder.setMessage("인터뷰 신청하시겠습니까?");
+                builder.setPositiveButton("예",
+                        new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int which) {
+                                String addr = getString(R.string.server_addr);
+                                new InterAction().execute(
+                                        addr+"addList",
+                                        "id=" + id,
+                                        "activity_time="+ request_time.getText(),
+                                        "sitterBoard_id="+sitter_id
+                                );
+                                finish();
+                            }
+                        });
+                builder.setNegativeButton("아니오",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+                builder.show();
+            }
+        });
     }
+
+    class InterAction extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+
+            StringBuffer receiveData = new StringBuffer();
+            try{
+                URL url = new URL(strings[0]);//파라미터1 : 요청 URL
+                HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+                connection.setRequestMethod("POST");
+                connection.setDoOutput(true);
+
+                OutputStream out = connection.getOutputStream();
+                out.write(strings[1].getBytes());
+                out.write("&".getBytes());
+                out.write(strings[2].getBytes());
+                out.write("&".getBytes());
+                out.write(strings[3].getBytes());
+
+                out.flush();
+                out.close();
+
+                if(connection.getResponseCode()==HttpURLConnection.HTTP_OK){
+                    Log.i(TAG, "HTTP OK 성공");
+
+                    BufferedReader reader = new BufferedReader(
+                            new InputStreamReader(connection.getInputStream(),"UTF-8"));
+                    String responseData;
+                    while((responseData=reader.readLine())!=null){
+                        receiveData.append(responseData+"\n\r");
+                    }
+                    reader.close();
+                }
+                else{
+                    Log.i(TAG, connection.getResponseCode()+"");
+                    Log.i(TAG, "HTTP OK 안됨");
+                }
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+            //저장된 내용을 로그로 출력한후 onPostExecute()로 반환한다.
+            Log.i(TAG, receiveData.toString());
+            //서버에서 내려준 JSON정보를 저장후 반환
+            return receiveData.toString();
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+
+        //doInBackground()에서 반환값은 해당 메소드로 전달한다.
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+            StringBuffer sb = new StringBuffer();
+            try{
+                //JSON객체를 파싱
+                JSONObject jsonObject = new JSONObject(s);
+                String message = jsonObject.getString("message");
+                Toast.makeText(getApplicationContext(),
+                        message,
+                        Toast.LENGTH_SHORT).show();
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
+
 
 
     //상세시터리스트 불러오기

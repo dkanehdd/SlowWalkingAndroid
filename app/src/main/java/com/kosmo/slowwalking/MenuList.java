@@ -50,6 +50,7 @@ public class MenuList extends AppCompatActivity {
     ArrayList<String> content = new ArrayList<String>() ;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +72,7 @@ public class MenuList extends AppCompatActivity {
                 "id="+id,
                 "flag="+flag
         );
+
 
 
 
@@ -97,7 +99,7 @@ public class MenuList extends AppCompatActivity {
         menuFragment4 = new MenuFragment4();
         Bundle bundle6 = new Bundle();
         bundle6.putString("id", id);
-        bundle6.putString("flag", flag);
+        bundle6.putString("flag",flag);
         menuFragment4.setArguments(bundle6);
 
 
@@ -106,11 +108,13 @@ public class MenuList extends AppCompatActivity {
         bundle5.putStringArrayList("regidate", regidate);
         bundle5.putStringArrayList("content", content);
         bundle5.putStringArrayList("name", name);
+
         calendarFragment.setArguments(bundle5);
+
 
         /*subMenuFragment1 = new SubMenuFragment1();*/
         Bundle bundle4 = new Bundle();
-        bundle4.putString("sitter_id", id);
+        bundle4.putString("id",id);
         menuFragment1.setArguments(bundle4);//프래그먼트에 세팅
         /*subMenuFragment1 = new SubMenuFragment1();
         subMenuFragment1.setArguments(bundle4);
