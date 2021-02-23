@@ -43,9 +43,9 @@ public class SubMenuFragment1 extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        String addr = getResources().getString(R.string.server_addr);
         new SitterList().execute( //시터 리스트 불러오기
-                "http://192.168.219.121:8080/slowwalking/android/SitterBoard_list"
-
+                addr+"SitterBoard_list"
         );
     }
 

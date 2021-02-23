@@ -40,8 +40,6 @@ public class MenuList extends AppCompatActivity {
     SubMenuFragment1 subMenuFragment1;
 
     ArrayList<String> interviewID = new ArrayList<String>() ;
-    ArrayList<String> interviewRequest_time = new ArrayList<String>() ;
-    ArrayList<Integer> interview_idx = new ArrayList<Integer>();
     ArrayList<Integer> diary_idx = new ArrayList<Integer>();
     ArrayList<String> Request_time = new ArrayList<String>() ;
     ArrayList<String> parentsName = new ArrayList<String>();
@@ -62,18 +60,14 @@ public class MenuList extends AppCompatActivity {
         if(flag.equals("sitter")){
 
         }
-        new InterviewAsyncHttpRequest().execute( //1. 수락안된 인터뷰리스트 불러오기
-                "http://192.168.219.121:8080/slowwalking/android/interList",
-                "id="+id,
-                "flag="+flag
-        );
+        String addr = getResources().getString(R.string.server_addr);
         new DiaryAsyncHttpRequest().execute( //수락된 인터뷰 리스트 불러오기
-                "http://192.168.219.121:8080/slowwalking/android/diaryList",
+                addr+"diaryList",
                 "id="+id,
                 "flag="+flag
         );
         new DiaryListAsync().execute( //수락된 인터뷰 리스트 불러오기
-                "http://192.168.219.121:8080/slowwalking/android/openCalendar",
+                addr+"openCalendar",
                 "id="+id,
                 "flag="+flag
         );
@@ -88,9 +82,7 @@ public class MenuList extends AppCompatActivity {
         
         menuFragment2 = new MenuFragment2();
         Bundle bundle2 = new Bundle();
-        bundle2.putStringArrayList("interviewID", interviewID);//번들객체에 리스트로 담아서
-        bundle2.putStringArrayList("request_time", interviewRequest_time);
-        bundle2.putIntegerArrayList("interview_idx", interview_idx);
+        bundle2.putString("id", id);
         bundle2.putString("flag", flag);
         menuFragment2.setArguments(bundle2);//프래그먼트에 세팅
 
@@ -159,100 +151,7 @@ public class MenuList extends AppCompatActivity {
         }
     }
 
-    //인터뷰 리스트 불러오기
-    class InterviewAsyncHttpRequest extends AsyncTask<String, Void, String> {
 
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected String doInBackground(String... strings) {
-
-            StringBuffer receiveData = new StringBuffer();
-            try{
-                URL url = new URL(strings[0]);//파라미터1 : 요청 URL
-                HttpURLConnection connection = (HttpURLConnection)url.openConnection();
-                connection.setRequestMethod("GET");
-                connection.setDoOutput(true);
-
-                OutputStream out = connection.getOutputStream();
-                out.write(strings[1].getBytes());
-                out.write("&".getBytes());
-                out.write(strings[2].getBytes());
-
-                out.flush();
-                out.close();
-
-                if(connection.getResponseCode()==HttpURLConnection.HTTP_OK){
-                    Log.i(TAG, "HTTP OK 성공");
-
-                    BufferedReader reader = new BufferedReader(
-                            new InputStreamReader(connection.getInputStream(),"UTF-8"));
-                    String responseData;
-                    while((responseData=reader.readLine())!=null){
-                        receiveData.append(responseData+"\n\r");
-                    }
-                    reader.close();
-                }
-                else{
-                    Log.i(TAG, connection.getResponseCode()+"");
-                    Log.i(TAG, "HTTP OK 안됨");
-                }
-            }
-            catch (Exception e){
-                e.printStackTrace();
-            }
-            //저장된 내용을 로그로 출력한후 onPostExecute()로 반환한다.
-            Log.i(TAG, receiveData.toString());
-
-
-            //서버에서 내려준 JSON정보를 저장후 반환
-            return receiveData.toString();
-        }
-
-        @Override
-        protected void onProgressUpdate(Void... values) {
-            super.onProgressUpdate(values);
-        }
-
-        //doInBackground()에서 반환값은 해당 메소드로 전달한다.
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-
-            StringBuffer sb = new StringBuffer();
-            try{
-                /*
-                {"lists":[{"idx":8,"parents_id":"dkanehdd","sitter_id":"dkanehd","request_time":"15:00 ~ 20:00",
-                "parents_agree":"T","sitter_agree":"T","request_idx":10,"parents_name":null,"sitter_name":null},
-                {"idx":7,"parents_id":"kosmo3","sitter_id":"dkanehd","request_time":"18:00 ~ 21:00","parents_agree":"T",
-                "sitter_agree":"T","request_idx":9,"parents_name":null,"sitter_name":null}]}
-                 */
-                //JSON객체를 파싱
-                JSONObject jsonObject = new JSONObject(s);
-                JSONArray jsonArray = (JSONArray)jsonObject.get("lists");//lists로 배열을 먼저 얻어옴 []
-
-                for(int i=0 ; i<jsonArray.length() ; i++){//배열크기만큼반복
-                    JSONObject interview = (JSONObject) jsonArray.get(i); //배열에서 하나씩 가져옴
-                    Log.i(TAG, interview.get("parents_id").toString()+" "+interview.get("request_time").toString());//디버깅용
-                    if(flag.equals("sitter")){
-                        interviewID.add(interview.get("parents_name").toString());//가져와서 컬렉션에 저장
-                    }
-                    else{
-                        interviewID.add(interview.get("sitter_name").toString());
-                    }
-                    interviewRequest_time.add(interview.get("request_time").toString());//가져와서 컬렉션에 저장
-                    interview_idx.add(Integer.parseInt(interview.get("idx").toString()));
-                }
-            }
-            catch (Exception e){
-                e.printStackTrace();
-            }
-        }
-    }
 
 
     //인터뷰 리스트 불러오기

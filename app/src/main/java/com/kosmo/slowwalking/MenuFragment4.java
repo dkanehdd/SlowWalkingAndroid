@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -30,16 +31,17 @@ import java.net.URL;
 public class MenuFragment4 extends Fragment implements CompoundButton.OnCheckedChangeListener {
 
     public static final String TAG = "ikosmo";
-    String[] parents = {"받은후기","이용권","포인트","내 의뢰서작성"};
-    String[] sitter = {"받은후기","이용권","포인트", ""};
+    String[] parents = {"받은후기","이용권","","CCTV"};
+    String[] sitter = {"받은후기","이용권","", ""};
     String id, flag;
+    ListView listView;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Log.d(TAG, "MenuFragement4 > onCreateView()");
 
         ViewGroup viewGroup = (ViewGroup)inflater.inflate(R.layout.menu_fragment4, container, false);
-        ListView listView = (ListView)viewGroup.findViewById(android.R.id.list);
+        listView = (ListView)viewGroup.findViewById(android.R.id.list);
 
         Bundle bundle = getArguments();
         id = bundle.getString("id");
@@ -51,35 +53,22 @@ public class MenuFragment4 extends Fragment implements CompoundButton.OnCheckedC
         else{
             parents= sitter;
         }
-
+        String addr = getResources().getString(R.string.server_addr);
+        new MemberView().execute(
+                addr+"myinfo",
+                "id="+id
+        );
         switch_btn.setOnCheckedChangeListener(this);
 
-        MenuFragment4.MyAdapter myAdapter = new MenuFragment4.MyAdapter();
-        listView.setAdapter(myAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long ids) {
-                Log.d(TAG, "인덱스 : "+position);
-                if(position==0){
-                    Intent intent = new Intent(getContext(),
-                            CommentActivity.class);
-                    //부가데이터를 넘기기 위한 준비. Map컬렉션같이 Key와 value로 설정
-                    intent.putExtra("id", id);
-                    //액티비티 실행
-                    startActivity(intent);
-                }
-                if(position==3) {
 
-                }
-            }
-        });
         return viewGroup;
     }
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        String addr = getResources().getString(R.string.server_addr);
         new advertiseChange().execute( //1. 수락안된 인터뷰리스트 불러오기
-                "http://192.168.219.121:8080/slowwalking/android/advertise",
+                addr+"advertise",
                 "id="+id,
                 "check="+isChecked
         );
@@ -208,8 +197,6 @@ public class MenuFragment4 extends Fragment implements CompoundButton.OnCheckedC
 
                 OutputStream out = connection.getOutputStream();
                 out.write(strings[1].getBytes());
-                out.write("&".getBytes());
-                out.write(strings[2].getBytes());
                 out.flush();
                 out.close();
 
@@ -258,8 +245,33 @@ public class MenuFragment4 extends Fragment implements CompoundButton.OnCheckedC
                 JSONObject dto = (JSONObject)jsonObject.get("dto");//lists로 배열을 먼저 얻어옴 []
                 String point = dto.getString("point");
                 String ticket = dto.getString("ticket");
-                sitter[1] += ticket;
-                sitter[2] += point;
+                sitter[1] = "이용권 " + ticket+ "개";
+                parents[1] = "이용권 " + ticket+ "개";
+                sitter[2] = point+"포인트";
+                parents[2] = point+"포인트";
+                MenuFragment4.MyAdapter myAdapter = new MenuFragment4.MyAdapter();
+                listView.setAdapter(myAdapter);
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long ids) {
+                        Log.d(TAG, "인덱스 : "+position);
+                        if(position==0){
+                            Intent intent = new Intent(getContext(),
+                                    CommentActivity.class);
+                            //부가데이터를 넘기기 위한 준비. Map컬렉션같이 Key와 value로 설정
+                            intent.putExtra("id", id);
+                            //액티비티 실행
+                            startActivity(intent);
+                        }
+                        if(position==3) {
+                            Intent intent = new Intent(getContext(),
+                                    CctvActivity.class);
+                            //부가데이터를 넘기기 위한 준비. Map컬렉션같이 Key와 value로 설정
+                            //액티비티 실행
+                            startActivity(intent);
+                        }
+                    }
+                });
             }
             catch (Exception e){
                 e.printStackTrace();
