@@ -35,18 +35,27 @@ public class SubMenuFragment1 extends Fragment {
     public static final String TAG = "iKosmo";
 
     ListView customListView;
-    String id;
+    InterViewDetail interViewDetail;
 
     private CustomAdapter customAdapter;
     ArrayList<SitterListDTO> siter;
 
+    String user_id;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle bundle = getArguments();
+
+        user_id = bundle.getString("id");
+
+
+
         new SitterList().execute( //시터 리스트 불러오기
-                "http://192.168.219.121:8080/slowwalking/android/SitterBoard_list"
+                "http://192.168.219.116:8080/slowwalking/android/SitterBoard_list"
 
         );
+
     }
 
     @Nullable
@@ -61,8 +70,6 @@ public class SubMenuFragment1 extends Fragment {
 
         customListView = (ListView) viewGroup.findViewById(android.R.id.list);
 
-        Bundle bundle = getArguments();
-        id = bundle.getString("sitter_id");
 
 
 
@@ -128,6 +135,7 @@ public class SubMenuFragment1 extends Fragment {
                     Intent intent = new Intent(v.getContext(),
                             InterViewDetail.class);
                    intent.putExtra("sitter_id", dto.getSitter_id());
+                   intent.putExtra("id", user_id);
                     //액티비티 실행
                     startActivity(intent);
                 }

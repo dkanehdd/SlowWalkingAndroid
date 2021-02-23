@@ -79,7 +79,7 @@ public class MenuFragment4 extends Fragment implements CompoundButton.OnCheckedC
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         new advertiseChange().execute( //1. 수락안된 인터뷰리스트 불러오기
-                "http://192.168.219.121:8080/slowwalking/android/advertise",
+                "http://192.168.219.116:8080/slowwalking/android/advertise",
                 "id="+id,
                 "check="+isChecked
         );
