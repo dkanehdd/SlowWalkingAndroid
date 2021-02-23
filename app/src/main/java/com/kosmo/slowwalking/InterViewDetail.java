@@ -63,11 +63,12 @@ public class InterViewDetail extends AppCompatActivity {
         setContentView(R.layout.sitter_detailview);
 
         final Intent intent = getIntent();
-        String Sitter_id = intent.getStringExtra("sitter_id");
+        String id = intent.getStringExtra("id");
+        String sitter_id = intent.getStringExtra("sitter_id");
         String addr = getResources().getString(R.string.server_addr);
         new SitterDetail().execute( //시터 리스트 불러오기
                 addr+"SitterBoard_view",
-                "id="+Sitter_id
+                "id="+sitter_id
         );
 
         imageview = (ImageView) findViewById(R.id.imageview);
@@ -287,5 +288,4 @@ public class InterViewDetail extends AppCompatActivity {
         }
     }
 }
-
 
