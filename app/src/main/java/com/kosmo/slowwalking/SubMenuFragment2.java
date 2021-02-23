@@ -35,15 +35,20 @@ public class SubMenuFragment2 extends Fragment {
     public static final String TAG = "iKosmo";
 
     ListView customListView;
-    String id;
+    String user_id;
+    String flag;
 
     private CustomAdapter customAdapter;
     ArrayList<RequestBoardDTO> requestBoard;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         String addr = getResources().getString(R.string.server_addr);
+        Bundle bundle = getArguments();
+        user_id = bundle.getString("id");
+        flag = bundle.getString("flag");
         new RequestBoardList().execute( //의뢰리스트
                 addr+"requestBoard_list"
         );
@@ -200,6 +205,7 @@ public class SubMenuFragment2 extends Fragment {
                 for(int i=0 ; i<jsonArray.length() ; i++){//배열크기만큼반복
                     JSONObject sitterview = (JSONObject) jsonArray.get(i); //배열에서 하나씩 가져옴
                     RequestBoardDTO dto = new RequestBoardDTO();
+                    dto.setId(sitterview.get("id").toString());
                     dto.setTitle(sitterview.get("title").toString());
                     dto.setRegion(sitterview.get("region").toString());//가져와서 컬렉션에 저장
                     dto.setChildren_name(sitterview.get("children_name").toString());
@@ -217,9 +223,13 @@ public class SubMenuFragment2 extends Fragment {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Intent intent = new Intent(view.getContext(),
-                                InterViewDetail.class);
+                                RequestDetail.class);
+                        intent.putExtra("parents_id", requestBoard.get(position).getId());
                         intent.putExtra("idx", requestBoard.get(position).getIdx());
-                        //액티비티 실행
+                        intent.putExtra("id", user_id);
+                        intent.putExtra("flag",flag);
+                        //액티비티 실행 //인덱스보내서 받아와서 이네덱스 참초해서
+
                         startActivity(intent);
                     }
                 });

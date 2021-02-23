@@ -44,12 +44,14 @@ public class MenuFragment1 extends Fragment {
 
     String id;
     String user_id;
+    String flag;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle bundle = getArguments();
         id = bundle.getString("sitter_id");
         user_id = bundle.getString("id");
+        flag = bundle.getString("flag");
 
 
 
@@ -74,8 +76,13 @@ public class MenuFragment1 extends Fragment {
         submenuFragment1 = new SubMenuFragment1();
         submenuFragment2 = new SubMenuFragment2();
         Bundle bundle2 = new Bundle();
-        bundle2.putString("id",user_id);
+        bundle2.putString("id", user_id);
+        bundle2.putString("flag",flag);
         submenuFragment1.setArguments(bundle2);
+        Bundle bundle3 = new Bundle();
+        bundle3.putString("id", user_id);
+        bundle3.putString("flag",flag);
+        submenuFragment2.setArguments(bundle3);
         getChildFragmentManager().beginTransaction().replace(R.id.mainLayout, submenuFragment1).commit();
 
 

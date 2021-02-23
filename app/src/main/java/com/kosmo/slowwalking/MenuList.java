@@ -38,6 +38,7 @@ public class MenuList extends AppCompatActivity {
     private View header;
     calendarFragment calendarFragment;
     SubMenuFragment1 subMenuFragment1;
+    SubMenuFragment1 subMenuFragment2;
 
     ArrayList<String> interviewID = new ArrayList<String>() ;
     ArrayList<Integer> diary_idx = new ArrayList<Integer>();
@@ -115,7 +116,9 @@ public class MenuList extends AppCompatActivity {
         /*subMenuFragment1 = new SubMenuFragment1();*/
         Bundle bundle4 = new Bundle();
         bundle4.putString("id",id);
+        bundle4.putString("flag",flag);
         menuFragment1.setArguments(bundle4);//프래그먼트에 세팅
+
         /*subMenuFragment1 = new SubMenuFragment1();
         subMenuFragment1.setArguments(bundle4);
         header=  getLayoutInflater().inflate(R.layout.menu_fragment1, null, false);
