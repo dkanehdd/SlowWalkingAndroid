@@ -63,12 +63,11 @@ public class InterViewDetail extends AppCompatActivity {
         setContentView(R.layout.sitter_detailview);
 
         final Intent intent = getIntent();
-        String id = intent.getStringExtra("id");
-        String sitter_id = intent.getStringExtra("sitter_id");
-        String flag = intent.getStringExtra("flag");
+        String Sitter_id = intent.getStringExtra("sitter_id");
+        String addr = getResources().getString(R.string.server_addr);
         new SitterDetail().execute( //시터 리스트 불러오기
-                "http://192.168.219.116:8080/slowwalking/android/SitterBoard_view",
-                "id="+sitter_id
+                addr+"SitterBoard_view",
+                "id="+Sitter_id
         );
 
         imageview = (ImageView) findViewById(R.id.imageview);
