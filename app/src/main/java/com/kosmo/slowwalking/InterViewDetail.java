@@ -65,7 +65,6 @@ public class InterViewDetail extends AppCompatActivity {
         final Intent intent = getIntent();
         String id = intent.getStringExtra("id");
         String sitter_id = intent.getStringExtra("sitter_id");
-        String flag = intent.getStringExtra("flag");
         new SitterDetail().execute( //시터 리스트 불러오기
                 "http://192.168.219.116:8080/slowwalking/android/SitterBoard_view",
                 "id="+sitter_id
