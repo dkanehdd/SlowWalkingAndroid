@@ -41,6 +41,7 @@ public class SubMenuFragment1 extends Fragment {
     ArrayList<SitterListDTO> siter;
 
     String user_id;
+    String flag;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,6 +49,7 @@ public class SubMenuFragment1 extends Fragment {
         Bundle bundle = getArguments();
 
         user_id = bundle.getString("id");
+        flag = bundle.getString("flag");
 
         String addr = getResources().getString(R.string.server_addr);
         new SitterList().execute( //시터 리스트 불러오기
@@ -127,6 +129,7 @@ public class SubMenuFragment1 extends Fragment {
             viewHolder.requestage.setText(Integer.toString(dto.getAge()));
             viewHolder.requestaccount.setText(Integer.toString(dto.getPay()));
             viewHolder.requeststarrate.setRating(dto.getStarrate());
+
             viewHolder.diary.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
@@ -134,11 +137,11 @@ public class SubMenuFragment1 extends Fragment {
                             InterViewDetail.class);
                    intent.putExtra("sitter_id", dto.getSitter_id());
                    intent.putExtra("id", user_id);
+                   intent.putExtra("flag",flag);
                     //액티비티 실행
                     startActivity(intent);
                 }
             });
-
             return convertView;
         }
     }

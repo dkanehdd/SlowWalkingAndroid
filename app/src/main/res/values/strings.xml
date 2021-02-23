@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">SlowWalking</string>
-    <string name="server_addr">http://192.168.219.115:8080/slowwalking/android/</string>
+    <string name="server_addr">http://192.168.219.116:8080/slowwalking/android/</string>
 </resources>
