@@ -36,6 +36,7 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".MenuList" />
         <activity android:name=".InterViewDetail" />
+        <activity android:name=".RequestDetail" />
     </application>
 
 </manifest>

@@ -1,99 +1,78 @@
 package com.kosmo.slowwalking;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 
-public class InterViewDetail extends AppCompatActivity {
+public class RequestDetail extends AppCompatActivity {
+
 
     public static final String TAG = "iKosmo";
 
-
     ImageView imageview;
-    TextView sittername;
-    TextView request_intro;
-    TextView request_cctv;
-    TextView request_personal;
-    TextView prequest_licenserent;
-    TextView request_time;
+    TextView request_title;
+    TextView request_childrenname;
     TextView request_date;
-    TextView request_address1;
-    TextView request_address2;
-    TextView request_address3;
-    TextView request_age;
-    TextView request_pay;
-    TextView request_gender;
+    TextView request_ages;
+    TextView request_names;
+    TextView region;
+    TextView request_disability_grade;
+    TextView request_warning;
+    TextView request_start_work;
+    TextView request_regular_short;
     RatingBar rating;
     Button interView;
-
+    String id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.sitter_detailview);
+        setContentView(R.layout.parentsdetailview);
 
         final Intent intent = getIntent();
-        String id = intent.getStringExtra("id");
-        String sitter_id = intent.getStringExtra("sitter_id");
+        id = intent.getStringExtra("id");
+        String parents_id = intent.getStringExtra("parents_id");
+        int idx = intent.getIntExtra("idx",0);
         String flag = intent.getStringExtra("flag");
         String addr = getResources().getString(R.string.server_addr);
-        new SitterDetail().execute( //시터 리스트 불러오기
-                addr+"SitterBoard_view",
-                "id="+sitter_id
-        );
 
-        imageview = (ImageView) findViewById(R.id.imageview);
-        sittername = (TextView) findViewById(R.id.request_name);
-        request_intro = (TextView) findViewById(R.id.request_intro);
-        request_cctv = (TextView) findViewById(R.id.request_cctv);
-        request_personal = (TextView) findViewById(R.id.request_personal);
-        prequest_licenserent = (TextView) findViewById(R.id.request_license);
-        request_time = (TextView) findViewById(R.id.request_activity);
-        request_date = (TextView) findViewById(R.id.request_date);
-        request_address1 = (TextView) findViewById(R.id.request_address1);
-        request_address2 = (TextView) findViewById(R.id.request_address2);
-        request_address3 = (TextView) findViewById(R.id.request_address3);
-        request_age = (TextView) findViewById(R.id.request_age);
-        request_pay = (TextView) findViewById(R.id.request_pay);
-        request_gender = (TextView) findViewById(R.id.request_gender);
-        rating = (RatingBar) findViewById(R.id.request_starrate);
 
-        interView = (Button) findViewById(R.id.BtninterView);
-        if(flag.equals("sitter")) {
+        imageview = (ImageView) findViewById(R.id.imageviews);
+        request_title = (TextView) findViewById(R.id.request_title);
+        request_childrenname = (TextView) findViewById(R.id.request_childrenname);
+        request_ages = (TextView) findViewById(R.id.request_ages);
+        request_names = (TextView) findViewById(R.id.request_names);
+        region = (TextView) findViewById(R.id.region);
+        request_date = (TextView)findViewById(R.id.request_date) ;
+        request_disability_grade = (TextView) findViewById(R.id.request_disability_grade);
+        request_warning = (TextView) findViewById(R.id.request_warning);
+        request_start_work = (TextView) findViewById(R.id.request_start_work);
+        request_regular_short = (TextView) findViewById(R.id.request_regular_short);
+        rating = (RatingBar) findViewById(R.id.request_starrates);
+
+        interView = (Button) findViewById(R.id.BtnreinterView);
+        if(flag.equals("parents")) {
             interView.setVisibility(View.GONE);
         }
-
-
+        new Requestdetail().execute( //시터 리스트 불러오기
+                addr+"requestBoard_view",
+                "idx="+idx
+        );
 
         interView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,10 +87,11 @@ public class InterViewDetail extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 String addr = getString(R.string.server_addr);
                                 new InterAction().execute(
-                                        addr+"addList",
+                                        addr+"addRequestList",
                                         "id=" + id,
-                                        "activity_time="+ request_time.getText(),
-                                        "sitterBoard_id="+sitter_id
+                                        "activity_time="+ request_date.getText(),
+                                        "parents_id="+parents_id,
+                                        "idx="+idx
                                 );
                                 finish();
                             }
@@ -124,6 +104,8 @@ public class InterViewDetail extends AppCompatActivity {
                 builder.show();
             }
         });
+
+
     }
 
     class InterAction extends AsyncTask<String, Void, String> {
@@ -149,6 +131,8 @@ public class InterViewDetail extends AppCompatActivity {
                 out.write(strings[2].getBytes());
                 out.write("&".getBytes());
                 out.write(strings[3].getBytes());
+                out.write("&".getBytes());
+                out.write(strings[4].getBytes());
 
                 out.flush();
                 out.close();
@@ -204,10 +188,8 @@ public class InterViewDetail extends AppCompatActivity {
     }
 
 
-
     //상세시터리스트 불러오기
-    class SitterDetail extends AsyncTask<String, Void, String> {
-
+    class Requestdetail extends AsyncTask<String, Void, String> {
 
         @Override
         protected void onPreExecute() {
@@ -271,22 +253,19 @@ public class InterViewDetail extends AppCompatActivity {
                  */
                 //JSON객체를 파싱
                 JSONObject jsonObject = new JSONObject(s);
-                JSONObject sitterdetailview = (JSONObject)jsonObject.get("dto");//lists로 배열을 먼저 얻어옴 []
+                JSONObject requestdetailview = (JSONObject)jsonObject.get("dto");//lists로 배열을 먼저 얻어옴 []
 
-                sittername.setText(sitterdetailview.get("name").toString());
-                request_intro.setText(sitterdetailview.get("introduction").toString());
-                request_cctv.setText(sitterdetailview.get("cctv_agree").toString());
-                request_personal.setText(sitterdetailview.get("personality_check").toString());
-                prequest_licenserent.setText(sitterdetailview.get("license_check").toString());
-                request_time.setText(sitterdetailview.get("activity_time").toString());
-                request_date.setText(sitterdetailview.get("activity_date").toString());
-                request_address1.setText(sitterdetailview.get("residence1").toString());
-                request_address2.setText(sitterdetailview.get("residence2").toString());
-                request_address3.setText(sitterdetailview.get("residence3").toString());
-                request_age.setText(sitterdetailview.get("age").toString());
-                request_pay.setText(sitterdetailview.get("pay").toString());
-                request_gender.setText(sitterdetailview.get("gender").toString());
-                rating.setRating(Integer.parseInt(sitterdetailview.get("starrate").toString()));
+                request_title.setText(requestdetailview.get("title").toString());
+                request_childrenname.setText(requestdetailview.get("children_name").toString());
+                request_ages.setText(requestdetailview.get("age").toString());
+                request_names.setText(requestdetailview.get("name").toString());
+                request_date.setText(requestdetailview.get("request_date").toString()+requestdetailview.get("request_time").toString());
+                region.setText(requestdetailview.get("region").toString());
+                request_disability_grade.setText(requestdetailview.get("disability_grade").toString());
+                request_warning.setText(requestdetailview.get("warning").toString());
+                request_start_work.setText(requestdetailview.get("start_work").toString());
+                request_regular_short.setText(requestdetailview.get("regular_short").toString());
+                rating.setRating(Integer.parseInt(requestdetailview.get("starrate").toString()));
             }
             catch (Exception e){
                 e.printStackTrace();
@@ -294,5 +273,3 @@ public class InterViewDetail extends AppCompatActivity {
         }
     }
 }
-
-
