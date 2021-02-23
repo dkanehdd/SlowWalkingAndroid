@@ -5,14 +5,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#FFFFFF"
-    android:gravity="center">
+    android:gravity="center"
+    >
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text="의뢰리스트"
-        android:textSize="40sp">
+        android:textSize="40sp"
+        android:fontFamily="@font/noto_sans">
     </TextView>
     <ListView
         android:layout_width="match_parent"

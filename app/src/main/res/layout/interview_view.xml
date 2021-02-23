@@ -33,6 +33,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:text="채팅"
+            android:id="@+id/btnchat">
+        </Button>
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="수락"
             android:id="@+id/Btnagree">
         </Button>

@@ -16,7 +16,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SlowWalking"
         android:usesCleartextTraffic="true">
-        <activity android:name=".CommentActivity"></activity>
+        <activity android:name=".RequestBoardActivity"></activity>
+        <activity android:name=".CctvActivity" />
+        <activity android:name=".ChatActivity" />
+        <activity android:name=".CommentActivity" />
         <activity android:name=".Intro">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
