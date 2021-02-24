@@ -12,10 +12,13 @@
         android:layout_height="0dp"
         android:layout_weight="1">
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/noto_sans_bold"
             android:text="마이페이지"
+            android:textColor="#DC5C05"
+            android:gravity="center_horizontal"
             android:textSize="40sp">
         </TextView>
     </RelativeLayout>
@@ -31,11 +34,21 @@
             android:textOn="온(표시안됨)"
             android:textOff="오프(표시안됨)"
             android:checked="true"
-            android:text="리스트에보이기"
-            android:textSize="24sp"/>
+            android:text="(LIST ON/OFF)"
+            android:layout_gravity="center"
+            android:textColor="#DC5C05"
+            android:textSize="24sp"
+            android:track="@drawable/switch_track_selector"
+            android:thumb="@drawable/switch_thumb"
+            />
+
         <ListView
+            android:layout_marginTop="@android:dimen/app_icon_size"
+            android:dividerHeight="4dp"
+            android:divider="#FFFFFF"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:textStyle="bold"
             android:id="@android:id/list">
         </ListView>
 

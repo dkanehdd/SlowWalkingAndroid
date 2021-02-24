@@ -3,23 +3,58 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/parentname"
-        android:text="부모님이름"
-        android:textSize="24sp">
-    </TextView>
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:id="@+id/content">
-    </EditText>
 
-    <Button
-        android:id="@+id/writeAction"
-        android:layout_width="wrap_content"
+    <TextView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="작성완료"></Button>
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/noto_sans_bold"
+        android:text="알림장 작성"
+        android:textColor="#DC5C05"
+        android:gravity="center_horizontal"
+        android:textSize="40sp">
+    </TextView>
+
+
+
+    <LinearLayout
+        android:layout_width="318dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <TextView
+            android:layout_gravity=""
+            android:textColor="#DC5C05"
+            android:layout_marginTop="100dip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/parentname"
+            android:text="부모님이름"
+            android:textStyle="bold"
+            android:textSize="24sp">
+        </TextView>
+        <EditText
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="400px"
+            android:background="@drawable/corner_shape"
+        android:gravity="top"></EditText>
+
+        <Button
+            android:id="@+id/writeAction"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70dip"
+            android:background="@drawable/button_background"
+            android:text="작성완료"
+            android:textColor="@color/white"
+
+            android:textStyle="bold"></Button>
+
+    </LinearLayout>
+
+
 </LinearLayout>

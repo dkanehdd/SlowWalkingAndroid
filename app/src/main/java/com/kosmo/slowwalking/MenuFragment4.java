@@ -32,7 +32,7 @@ public class MenuFragment4 extends Fragment implements CompoundButton.OnCheckedC
 
     public static final String TAG = "ikosmo";
     String[] parents = {"받은후기","이용권","","CCTV"};
-    String[] sitter = {"받은후기","이용권","", ""};
+    String[] sitter = {"받은후기","이용권","", "CCTV"};
     String id, flag;
     ListView listView;
     @Nullable
@@ -77,22 +77,34 @@ public class MenuFragment4 extends Fragment implements CompoundButton.OnCheckedC
     class MyAdapter extends BaseAdapter {
         @Override
         public int getCount() {
+            if(flag.equals("sitter")){
+                return sitter.length;
+            }
             return parents.length;
         }
 
         @Override
         public Object getItem(int position) {
+            if(flag.equals("sitter")){
+                return sitter[position];
+            }
             return parents[position];
         }
 
         @Override
         public long getItemId(int position) {
+            if(flag.equals("sitter")){
+                return position;
+            }
             return position;
         }
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             IdolView idolView = new IdolView(getContext());
+            if(flag.equals("sitter")){
+                idolView.setName(sitter[position]);
+            }
             idolView.setName(parents[position]);
 
             return idolView;
