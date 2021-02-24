@@ -2,288 +2,54 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/bg_register"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="10dp" >
+    android:padding="10dp">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:id="@+id/interDetailviewItems">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:id="@+id/imageview"
-                android:layout_width="match_parent"
-                android:layout_height="171dp"
-                android:layout_weight="8"
-                android:text="TextView"
-                android:textSize="40sp" />
-        </LinearLayout>
+    <ImageView
+        android:id="@+id/imageview"
+        android:layout_width="230dp"
+        android:layout_height="200dp"
+        android:text="TextView"
+        android:textSize="40sp" />
 
-    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="9">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-
-            android:textSize="40sp">
-        </TextView>
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:orientation="vertical"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp">
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center">
+
                 <TextView
                     android:id="@+id/request_name"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:gravity="center"
-                    android:text="이름"
-                    android:textColor="#FF9800"
-                    android:textSize="40sp"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:text="자기소개"
-                    android:textColor="@color/btn_login"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/request_intro"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_weight="2"
-                    android:text="TextView"
-                    android:textSize="20sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:text="CCTV 동의"
-                    android:textColor="@color/btn_login"
-                    android:textSize="20sp" />
+                    android:text="이름 나이 성별"
+                    android:textColor="#020100"
+                    android:textSize="30sp" />
 
                 <TextView
                     android:id="@+id/request_cctv"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
-                    android:layout_weight="2"
-                    android:text="TextView"
-                    android:textSize="20sp" />
+                    android:layout_weight="1"
+                    android:text="CCTV동의함"
+                    android:textColor="#FF9800"
+                    android:textSize="30sp" />
             </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:text="인적성 검사서"
-                    android:textColor="@color/btn_login"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/request_personal"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_weight="2"
-                    android:text="TextView"
-                    android:textSize="20sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:text="자격증"
-                    android:textColor="@color/btn_login"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/request_license"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_weight="2"
-                    android:text="TextView"
-                    android:textSize="20sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:text="활동시간"
-                    android:textColor="@color/btn_login"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/request_activity"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_weight="2"
-                    android:text="TextView"
-                    android:textSize="20sp" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:text="활동요일"
-                    android:textColor="@color/btn_login"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/request_date"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_weight="2"
-                    android:text="TextView"
-                    android:textSize="20sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:text="활동지역"
-                    android:textColor="@color/btn_login"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/request_address1"
-
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_weight="2"
-                    android:text="TextView"
-                    android:textSize="10sp" />
-                <TextView
-                    android:id="@+id/request_address2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_weight="2"
-                    android:text="TextView"
-                    android:textSize="10sp" />
-                <TextView
-                    android:id="@+id/request_address3"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_weight="2"
-                    android:text="TextView"
-                    android:textSize="10sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:text="나이"
-                    android:textColor="@color/btn_login"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/request_age"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_weight="2"
-                    android:text="TextView"
-                    android:textSize="20sp" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:text="시급"
-                    android:textColor="@color/btn_login"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/request_pay"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_weight="2"
-                    android:text="TextView"
-                    android:textSize="20sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:text="성별"
-                    android:textColor="@color/btn_login"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/request_gender"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_weight="2"
-                    android:text="TextView"
-                    android:textSize="20sp" />
-            </LinearLayout>
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -297,17 +63,185 @@
                     android:gravity="center"
                     android:isIndicator="true"
                     android:numStars="5"
-                    android:stepSize="1" />
+                    android:stepSize="1"
+                    android:theme="@style/CustomRatingBar" />
             </LinearLayout>
 
-            <Button
-                android:id="@+id/BtninterView"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dip"
-                android:background="#FF9800"
-                android:text="인터뷰 신청하기"
-                android:textColor="@color/white" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="시급"
+                    android:gravity="center"
+                    android:textColor="@color/btn_login"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/request_pay"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:textColor="#FF9800"
+                    android:layout_weight="3"
+                    android:text="TextView"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="자격증"
+                    android:gravity="center"
+                    android:textColor="@color/btn_login"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/request_license"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_weight="3"
+                    android:text="TextView"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="인적성 검사서"
+                    android:gravity="center"
+                    android:textColor="@color/btn_login"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/request_personal"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_weight="3"
+                    android:text="TextView"
+                    android:textSize="20sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="활동지역"
+                    android:gravity="center"
+                    android:textColor="@color/btn_login"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/request_address1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="TextView"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="활동요일"
+                    android:gravity="center"
+                    android:textColor="@color/btn_login"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/request_date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_weight="3"
+                    android:text="TextView"
+                    android:textSize="20sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:text="활동가능시간"
+                    android:textColor="@color/btn_login"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/request_activity"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_weight="3"
+                    android:text="TextView"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+
+
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="자기소개"
+                    android:gravity="center"
+                    android:textColor="@color/btn_login"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/request_intro"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_weight="3"
+                    android:text="TextView"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
         </LinearLayout>
+
+        <Button
+            android:id="@+id/BtninterView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="20dip"
+            android:layout_marginBottom="4dp"
+            android:background="#FF9800"
+            android:text="인터뷰 신청하기"
+            android:textColor="@color/white" />
     </RelativeLayout>
 </LinearLayout>

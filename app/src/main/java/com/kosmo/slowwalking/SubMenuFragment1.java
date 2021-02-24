@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -96,6 +97,8 @@ public class SubMenuFragment1 extends Fragment {
             public TextView requestaddress;
             public TextView requestage;
             public TextView requestaccount;
+            public TextView date;
+            public TextView time;
             public RatingBar requeststarrate;
             public Button diary;
         }
@@ -116,32 +119,25 @@ public class SubMenuFragment1 extends Fragment {
 
             viewHolder = new SubMenuFragment1.CustomAdapter.ViewHolder();
             viewHolder.image_view = (ImageView) convertView.findViewById(R.id.imageview);
-            viewHolder.requestname = (TextView) convertView.findViewById(R.id.request_name);
             viewHolder.requestaddress = (TextView) convertView.findViewById(R.id.request_address);
+            viewHolder.requestname = (TextView) convertView.findViewById(R.id.request_name);
             viewHolder.requestage = (TextView) convertView.findViewById(R.id.request_age);
             viewHolder.requestaccount = (TextView) convertView.findViewById(R.id.request_account);
+            viewHolder.date = (TextView) convertView.findViewById(R.id.request_date);
+            viewHolder.time = (TextView) convertView.findViewById(R.id.request_time);
             viewHolder.requeststarrate = (RatingBar) convertView.findViewById(R.id.request_starrate);
-            viewHolder.diary = (Button) convertView.findViewById(R.id.BtnsitterView);
+
+
 
             final SitterListDTO dto = (SitterListDTO) list.get(position);
+            viewHolder.requestaddress.setText("["+dto.getResidence1() + dto.getResidence2()+dto.getResidence3()+"]");
             viewHolder.requestname.setText(dto.getName());
-            viewHolder.requestaddress.setText(dto.getResidence1());
-            viewHolder.requestage.setText(Integer.toString(dto.getAge()));
-            viewHolder.requestaccount.setText(Integer.toString(dto.getPay()));
+            viewHolder.requestage.setText(Integer.toString(dto.getAge())+"세");
+            viewHolder.requestaccount.setText(Integer.toString(dto.getPay())+"원");
+            viewHolder.date.setText(dto.getActivity_date());
+            viewHolder.time.setText(dto.getActivity_time());
             viewHolder.requeststarrate.setRating(dto.getStarrate());
 
-            viewHolder.diary.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(v.getContext(),
-                            InterViewDetail.class);
-                   intent.putExtra("sitter_id", dto.getSitter_id());
-                   intent.putExtra("id", user_id);
-                   intent.putExtra("flag",flag);
-                    //액티비티 실행
-                    startActivity(intent);
-                }
-            });
             return convertView;
         }
     }
@@ -217,20 +213,39 @@ public class SubMenuFragment1 extends Fragment {
                     dto.setSitter_id(sitterview.get("sitter_id").toString());
                     dto.setName(sitterview.get("name").toString());//가져와서 컬렉션에 저장
                     dto.setResidence1(sitterview.get("residence1").toString());
+                    dto.setResidence2(sitterview.get("residence2").toString().equals("null")?"":" "+sitterview.get("residence2").toString());
+                    Log.i(TAG, sitterview.get("residence2").toString().equals("null")?"33":"55");
+                    dto.setResidence3(sitterview.get("residence3").toString().equals("null")?"":" "+sitterview.get("residence3").toString());
                     dto.setImage_path(sitterview.get("image_path").toString());
                     dto.setAge(Integer.parseInt(sitterview.get("age").toString()));
                     dto.setPay(Integer.parseInt(sitterview.get("pay").toString()));
+                    dto.setActivity_date(sitterview.get("activity_date").toString());
+                    dto.setActivity_time(sitterview.get("activity_time").toString().equals("null")?"":sitterview.get("activity_time").toString());
                     dto.setStarrate(Integer.parseInt(sitterview.get("starrate").toString()));
                     siter.add(dto);
                 }
                 customAdapter  = new SubMenuFragment1.CustomAdapter(getContext(), siter);
                 customListView.setAdapter(customAdapter);
+                customListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Intent intent = new Intent(view.getContext(),
+                                InterViewDetail.class);
+                        intent.putExtra("sitter_id", siter.get(position).getSitter_id());
+                        intent.putExtra("id", user_id);
+                        intent.putExtra("flag",flag);
+                        //액티비티 실행
+                        startActivity(intent);
+                    }
+                });
             }
             catch (Exception e){
                 e.printStackTrace();
             }
         }
     }
+
+
 
 
 

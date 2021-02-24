@@ -3,8 +3,12 @@ package com.kosmo.slowwalking;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -15,12 +19,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 import org.json.JSONObject;
 import java.io.BufferedReader;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class RequestDetail extends AppCompatActivity {
+public class RequestDetail extends AppCompatActivity implements Runnable{
 
 
     public static final String TAG = "iKosmo";
@@ -29,8 +34,7 @@ public class RequestDetail extends AppCompatActivity {
     TextView request_title;
     TextView request_childrenname;
     TextView request_date;
-    TextView request_ages;
-    TextView request_names;
+    TextView pay;
     TextView region;
     TextView request_disability_grade;
     TextView request_warning;
@@ -39,6 +43,17 @@ public class RequestDetail extends AppCompatActivity {
     RatingBar rating;
     Button interView;
     String id;
+    String image;
+    Bitmap bitmap;// 비트맵 객체
+    // 메인 스레드와 백그라운드 스레드 간의 통신
+    Handler handler =new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            // 서버에서 받아온 이미지를 핸들러를 경유해 이미지뷰에 비트맵 리소스 연결
+            imageview.setImageBitmap(bitmap);
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,18 +67,16 @@ public class RequestDetail extends AppCompatActivity {
         String addr = getResources().getString(R.string.server_addr);
 
 
-        imageview = (ImageView) findViewById(R.id.imageviews);
+        imageview = (ImageView) findViewById(R.id.imageview);
         request_title = (TextView) findViewById(R.id.request_title);
         request_childrenname = (TextView) findViewById(R.id.request_childrenname);
-        request_ages = (TextView) findViewById(R.id.request_ages);
-        request_names = (TextView) findViewById(R.id.request_names);
         region = (TextView) findViewById(R.id.region);
         request_date = (TextView)findViewById(R.id.request_date) ;
         request_disability_grade = (TextView) findViewById(R.id.request_disability_grade);
         request_warning = (TextView) findViewById(R.id.request_warning);
         request_start_work = (TextView) findViewById(R.id.request_start_work);
         request_regular_short = (TextView) findViewById(R.id.request_regular_short);
-        rating = (RatingBar) findViewById(R.id.request_starrates);
+        rating = (RatingBar) findViewById(R.id.request_starrate);
 
         interView = (Button) findViewById(R.id.BtnreinterView);
         if(flag.equals("parents")) {
@@ -256,20 +269,50 @@ public class RequestDetail extends AppCompatActivity {
                 JSONObject requestdetailview = (JSONObject)jsonObject.get("dto");//lists로 배열을 먼저 얻어옴 []
 
                 request_title.setText(requestdetailview.get("title").toString());
-                request_childrenname.setText(requestdetailview.get("children_name").toString());
-                request_ages.setText(requestdetailview.get("age").toString());
-                request_names.setText(requestdetailview.get("name").toString());
-                request_date.setText(requestdetailview.get("request_date").toString()+requestdetailview.get("request_time").toString());
+                request_childrenname.setText(requestdetailview.get("children_name").toString()+"("+requestdetailview.get("age").toString()+"세)");
+                request_date.setText(requestdetailview.get("request_date").toString()+" "+requestdetailview.get("request_time").toString());
                 region.setText(requestdetailview.get("region").toString());
                 request_disability_grade.setText(requestdetailview.get("disability_grade").toString());
                 request_warning.setText(requestdetailview.get("warning").toString());
                 request_start_work.setText(requestdetailview.get("start_work").toString());
                 request_regular_short.setText(requestdetailview.get("regular_short").toString());
                 rating.setRating(Integer.parseInt(requestdetailview.get("starrate").toString()));
+                image = requestdetailview.get("image").toString();
+                Thread th =new Thread( RequestDetail.this );
+                // 동작 수행
+                th.start();
             }
             catch (Exception e){
                 e.printStackTrace();
             }
+        }
+    }
+
+    // 백그라운드 스레드
+    @Override
+    public void run() {
+        // http://192.168.0.127/resources/images/like1.png
+        URL url =null;
+        try{
+            // 스트링 주소를 url 형식으로 변환
+            url =new URL("http://192.168.219.104:8080/slowwalking/resources/images/"+image);
+            // url에 접속 시도
+            HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+            conn.connect();
+            // 스트림 생성
+            InputStream is = conn.getInputStream();
+            // 스트림에서 받은 데이터를 비트맵 변환
+            // 인터넷에서 이미지 가져올 때는 Bitmap을 사용해야함
+            bitmap = BitmapFactory.decodeStream(is);
+
+            // 핸들러에게 화면 갱신을 요청한다.
+            handler.sendEmptyMessage(0);
+            // 연결 종료
+            is.close();
+            conn.disconnect();
+
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 }

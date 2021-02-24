@@ -4,9 +4,13 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -28,6 +32,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
@@ -35,7 +40,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InterViewDetail extends AppCompatActivity {
+public class InterViewDetail extends AppCompatActivity implements Runnable{
 
     public static final String TAG = "iKosmo";
 
@@ -49,13 +54,21 @@ public class InterViewDetail extends AppCompatActivity {
     TextView request_time;
     TextView request_date;
     TextView request_address1;
-    TextView request_address2;
-    TextView request_address3;
-    TextView request_age;
     TextView request_pay;
-    TextView request_gender;
     RatingBar rating;
     Button interView;
+    String image;
+    Bitmap bitmap;// 비트맵 객체
+    // 메인 스레드와 백그라운드 스레드 간의 통신
+    Handler handler =new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            // 서버에서 받아온 이미지를 핸들러를 경유해 이미지뷰에 비트맵 리소스 연결
+            imageview.setImageBitmap(bitmap);
+        }
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,11 +94,7 @@ public class InterViewDetail extends AppCompatActivity {
         request_time = (TextView) findViewById(R.id.request_activity);
         request_date = (TextView) findViewById(R.id.request_date);
         request_address1 = (TextView) findViewById(R.id.request_address1);
-        request_address2 = (TextView) findViewById(R.id.request_address2);
-        request_address3 = (TextView) findViewById(R.id.request_address3);
-        request_age = (TextView) findViewById(R.id.request_age);
         request_pay = (TextView) findViewById(R.id.request_pay);
-        request_gender = (TextView) findViewById(R.id.request_gender);
         rating = (RatingBar) findViewById(R.id.request_starrate);
 
         interView = (Button) findViewById(R.id.BtninterView);
@@ -273,26 +282,56 @@ public class InterViewDetail extends AppCompatActivity {
                 JSONObject jsonObject = new JSONObject(s);
                 JSONObject sitterdetailview = (JSONObject)jsonObject.get("dto");//lists로 배열을 먼저 얻어옴 []
 
-                sittername.setText(sitterdetailview.get("name").toString());
+                sittername.setText(sitterdetailview.get("name").toString()+"("+sitterdetailview.get("age").toString()+"세, "+sitterdetailview.get("gender").toString()+")");
+                request_cctv.setText(sitterdetailview.get("cctv_agree").toString().equals("true")?"CCTV촬영동의":"CCTV촬영동의안함");
                 request_intro.setText(sitterdetailview.get("introduction").toString());
-                request_cctv.setText(sitterdetailview.get("cctv_agree").toString());
-                request_personal.setText(sitterdetailview.get("personality_check").toString());
-                prequest_licenserent.setText(sitterdetailview.get("license_check").toString());
+                request_personal.setText( "실명 / 생년월일 / 연락처를 확인하였습니다.");
+                prequest_licenserent.setText("장애영유아보육교사 자격증을 확인하였습니다.");
                 request_time.setText(sitterdetailview.get("activity_time").toString());
                 request_date.setText(sitterdetailview.get("activity_date").toString());
                 request_address1.setText(sitterdetailview.get("residence1").toString());
-                request_address2.setText(sitterdetailview.get("residence2").toString());
-                request_address3.setText(sitterdetailview.get("residence3").toString());
-                request_age.setText(sitterdetailview.get("age").toString());
-                request_pay.setText(sitterdetailview.get("pay").toString());
-                request_gender.setText(sitterdetailview.get("gender").toString());
+                request_pay.setText(sitterdetailview.get("pay").toString()+"원");
                 rating.setRating(Integer.parseInt(sitterdetailview.get("starrate").toString()));
+                image = sitterdetailview.get("image_path").toString();
+                Thread th =new Thread(InterViewDetail.this);
+                // 동작 수행
+                th.start();
             }
             catch (Exception e){
                 e.printStackTrace();
             }
         }
     }
+
+    // 백그라운드 스레드
+    @Override
+    public void run() {
+        // http://192.168.0.127/resources/images/like1.png
+        URL url =null;
+        try{
+            // 스트링 주소를 url 형식으로 변환
+            url =new URL("http://192.168.219.104:8080/slowwalking/resources/images/"+image);
+            // url에 접속 시도
+            HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+            conn.connect();
+            // 스트림 생성
+            InputStream is = conn.getInputStream();
+            // 스트림에서 받은 데이터를 비트맵 변환
+            // 인터넷에서 이미지 가져올 때는 Bitmap을 사용해야함
+            bitmap = BitmapFactory.decodeStream(is);
+
+            // 핸들러에게 화면 갱신을 요청한다.
+            handler.sendEmptyMessage(0);
+            // 연결 종료
+            is.close();
+            conn.disconnect();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
 }
 
 

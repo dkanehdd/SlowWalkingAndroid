@@ -60,7 +60,7 @@ public class SubMenuFragment2 extends Fragment {
 
         Log.d(TAG, "MenuFragement1 > onCreateView()");
 
-        ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.menu_subfragment1, container, false);
+        ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.menu_subfragment2, container, false);
 
 
 

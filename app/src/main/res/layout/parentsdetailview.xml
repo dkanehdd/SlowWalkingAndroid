@@ -7,64 +7,29 @@
     android:orientation="vertical"
     android:padding="10dp" >
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:id="@+id/requestDetailviewItems">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:id="@+id/imageviews"
-                android:layout_width="match_parent"
-                android:layout_height="171dp"
-                android:layout_weight="8"
-                android:text="TextView"
-                android:textSize="40sp" />
-        </LinearLayout>
-
-    </RelativeLayout>
-
+    <ImageView
+        android:id="@+id/imageview"
+        android:layout_width="230dp"
+        android:layout_height="200dp"
+        android:text="TextView"
+        android:textSize="40sp" />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="9">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-
-            android:textSize="40sp">
-        </TextView>
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:orientation="vertical"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center">
-            </LinearLayout>
+            android:orientation="vertical">
 
             <!--타이틀-->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/request_title"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:gravity="center"
-                    android:text="타이틀"
-                    android:textColor="#FF9800"
-                    android:textSize="20sp" />
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
             </LinearLayout>
 
             <!--이름,나이-->
@@ -78,78 +43,63 @@
                     android:layout_weight="2"
                     android:gravity="center"
                     android:text="이름"
-                    android:textColor="#9C27B0"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/request_ages"
-                    android:layout_width="0dp"
-                    android:gravity="center"
-                    android:textColor="@color/purple_200"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_weight="2"
-                    android:text="TextView"
-                    android:textSize="20sp" />
-                <TextView
-                    android:id="@+id/request_names"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:gravity="center"
-                    android:text="이름"
-                    android:textColor="#000000"
-                    android:textSize="20sp" />
+                    android:textSize="30sp" />
 
             </LinearLayout>
-
-
-
-            <!--지역-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:text="장소"
-                    android:gravity="center"
-                    android:textColor="@color/black"
-                    android:textSize="20sp" />
 
                 <TextView
-                    android:id="@+id/region"
+                    android:id="@+id/request_title"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="right"
                     android:layout_weight="2"
-                    android:text="TextView"
-                    android:textSize="20sp" />
+                    android:gravity="center"
+                    android:text="타이틀"
+                    android:textColor="#FF9800"
+                    android:textSize="30sp" />
+
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <RatingBar
+                    android:id="@+id/request_starrate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:isIndicator="true"
+                    android:numStars="5"
+                    android:stepSize="1"
+                    android:theme="@style/CustomRatingBar" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:text="시간"
+                    android:text="시급"
                     android:gravity="center"
-                    android:textColor="@color/black"
+                    android:textColor="@color/btn_login"
                     android:textSize="20sp" />
 
                 <TextView
-                    android:id="@+id/request_date"
+                    android:id="@+id/request_pay"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
-                    android:layout_weight="2"
+                    android:textColor="#FF9800"
+                    android:layout_weight="3"
                     android:text="TextView"
-                    android:textSize="20sp" />
+                    android:textSize="24sp" />
             </LinearLayout>
-            <!--장애등급-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -159,7 +109,7 @@
                     android:layout_weight="2"
                     android:text="장애등급"
                     android:gravity="center"
-                    android:textColor="@color/black"
+                    android:textColor="@color/btn_login"
                     android:textSize="20sp" />
 
                 <TextView
@@ -167,11 +117,10 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
-                    android:layout_weight="2"
+                    android:layout_weight="3"
                     android:text="TextView"
                     android:textSize="20sp" />
             </LinearLayout>
-
             <!--주의사항-->
             <LinearLayout
                 android:layout_width="match_parent"
@@ -190,10 +139,59 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
+                    android:layout_weight="3"
+                    android:text="TextView"
+                    android:textColor="#F44336"
+                    android:textSize="20sp" />
+            </LinearLayout>
+            <!--지역-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="2"
+                    android:text="장소"
+                    android:gravity="center"
+                    android:textColor="@color/btn_login"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/region"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_weight="3"
                     android:text="TextView"
                     android:textSize="20sp" />
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="시간"
+                    android:gravity="center"
+                    android:textColor="@color/btn_login"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/request_date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_weight="3"
+                    android:text="TextView"
+                    android:textSize="20sp" />
+            </LinearLayout>
+            <!--장애등급-->
+
+
+
 
             <!--희망시작날짜-->
             <LinearLayout
@@ -205,7 +203,7 @@
                     android:layout_weight="2"
                     android:text="희망시작날짜"
                     android:gravity="center"
-                    android:textColor="#000000"
+                    android:textColor="@color/btn_login"
                     android:textSize="20sp" />
 
                 <TextView
@@ -213,7 +211,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
-                    android:layout_weight="2"
+                    android:layout_weight="3"
                     android:text="TextView"
                     android:textSize="20sp" />
             </LinearLayout>
@@ -229,7 +227,7 @@
                     android:layout_weight="2"
                     android:text="시터기간"
                     android:gravity="center"
-                    android:textColor="#000000"
+                    android:textColor="@color/btn_login"
                     android:textSize="20sp" />
 
                 <TextView
@@ -237,26 +235,11 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
-                    android:layout_weight="2"
+                    android:layout_weight="3"
                     android:text="TextView"
                     android:textSize="20sp" />
             </LinearLayout>
 
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center">
-
-                <RatingBar
-                    android:id="@+id/request_starrates"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:isIndicator="true"
-                    android:numStars="5"
-                    android:stepSize="1" />
-            </LinearLayout>
             <Button
                 android:id="@+id/BtnreinterView"
                 android:layout_width="fill_parent"
