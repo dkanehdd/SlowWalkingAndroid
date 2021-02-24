@@ -11,14 +11,17 @@
         android:orientation="vertical">
 
         <TextView
+            android:layout_gravity="center"
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:text="TextView"
-            android:textColor="@color/black"
+            android:background="@drawable/corner_shape"
+            android:textColor="#FF9800"
             android:textSize="30sp"
-            android:layout_marginLeft="10dp"/>
+            android:textStyle="bold"
+            />
 
 
     </LinearLayout>

@@ -8,10 +8,13 @@
     android:gravity="center">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="내 구직현황"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/noto_sans_bold"
+        android:text="나의 구직현황"
+        android:textColor="#DC5C05"
+        android:gravity="center_horizontal"
         android:textSize="40sp">
     </TextView>
     <TextView

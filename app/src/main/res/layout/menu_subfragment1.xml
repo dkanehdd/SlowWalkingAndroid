@@ -11,6 +11,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:textColor="#DC5C05"
+        android:fontFamily="@font/noto_sans_bold"
+        android:gravity="center_horizontal"
         android:text="시터리스트"
         android:textSize="40sp">
     </TextView>

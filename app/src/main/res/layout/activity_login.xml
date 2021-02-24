@@ -1,66 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="20dp">
+    android:padding="40dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="느린걸음 로그인하기"
-        android:textSize="25dp"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:id="@+id/requestDetailviewItems">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="로그인"
+            android:textColor="#DC5C05"
+            android:fontFamily="@font/noto_sans_bold"
+            android:gravity="center_horizontal"
+            android:textSize="40sp" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="215dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="100dp"
+            app:srcCompat="@drawable/slow_logo" />
+
+    </RelativeLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:orientation="vertical"
-        android:background="#EEEEEE"
         android:padding="5dp">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <TextView
                 android:layout_width="80dp"
                 android:layout_height="50dp"
                 android:text="아 이 디"
-                android:textSize="15sp"/>
+                android:textSize="15sp"
+                android:textStyle="bold"/>
+
             <EditText
+                android:id="@+id/user_id"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:hint="아이디 입력"
-                android:id="@+id/user_id"/>
+                android:hint=""
+                android:textStyle="bold"/>
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            >
+
             <TextView
                 android:layout_width="80dp"
                 android:layout_height="50dp"
                 android:text="패스워드"
-                android:textSize="15sp"/>
+                android:textSize="15sp"
+                android:textStyle="bold"/>
+
             <EditText
+                android:id="@+id/user_pw"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:hint="패스워드 입력"
-                android:id="@+id/user_pw"
-                android:inputType="textPassword"/>
-            <!--
-               HTML5의 input 태그의 속성인 type과 동일하다.
-               입력형식에 따라 다른 키보드가 선택된다.
-            -->
+                android:hint=""
+                android:inputType="textPassword"
+                android:textStyle="bold"/>
+
         </LinearLayout>
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal">
+
             <Button
+                android:id="@+id/btn_login"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="회원로그인"
-                android:id="@+id/btn_login"/>
+                android:background="@drawable/button_background"
+                android:text="로그인"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                />
         </LinearLayout>
 
 
