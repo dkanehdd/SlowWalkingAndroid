@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -41,10 +42,11 @@ public class MenuFragment1 extends Fragment {
 
     SubMenuFragment1 submenuFragment1;
     SubMenuFragment2 submenuFragment2;
-
+    FragmentTransaction mFragmentTransaction;
     String id;
     String user_id;
     String flag;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +54,6 @@ public class MenuFragment1 extends Fragment {
         id = bundle.getString("sitter_id");
         user_id = bundle.getString("id");
         flag = bundle.getString("flag");
-
 
 
     }
@@ -67,12 +68,8 @@ public class MenuFragment1 extends Fragment {
        // ListView listView = (ListView) viewGroup.findViewById(R.id.listview1);
 
 
-        Button button1 = (Button)viewGroup.findViewById(R.id.btnsubFirstFragment);
-        Button button2 = (Button)viewGroup.findViewById(R.id.btnsubSecondFragment);
-        button1.setOnClickListener(listener);
-        button2.setOnClickListener(listener);
 
-        FragmentTransaction mFragmentTransaction = getChildFragmentManager().beginTransaction();
+        mFragmentTransaction = getChildFragmentManager().beginTransaction();
         submenuFragment1 = new SubMenuFragment1();
         submenuFragment2 = new SubMenuFragment2();
         Bundle bundle2 = new Bundle();
@@ -85,23 +82,31 @@ public class MenuFragment1 extends Fragment {
         submenuFragment2.setArguments(bundle3);
         getChildFragmentManager().beginTransaction().replace(R.id.mainLayout, submenuFragment1).commit();
 
+        BottomNavigationView bottomNavigationView = viewGroup.findViewById(R.id.navigationView1);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new ItemSelectedListener());//하단바에 리스너 부착
 
 
         return viewGroup;
 
     }
 
-    View.OnClickListener listener = new View.OnClickListener(){
+    //리스너 설정
+    class ItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener{
         @Override
-        public void onClick(View view) {
-            if(view.getId()==R.id.btnsubFirstFragment){
-                getChildFragmentManager().beginTransaction().replace(R.id.mainLayout, submenuFragment1).commit();
+        public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
+            switch(menuItem.getItemId())
+            {
+                case R.id.btnsubFirstFragment:
+                    getChildFragmentManager().beginTransaction().replace(R.id.mainLayout, submenuFragment1).commit();
+                    break;
+                case R.id.btnsubSecondFragment:
+                    getChildFragmentManager().beginTransaction().replace(R.id.mainLayout, submenuFragment2).commit();
+                    break;
             }
-            else if(view.getId()==R.id.btnsubSecondFragment){
-                getChildFragmentManager().beginTransaction().replace(R.id.mainLayout, submenuFragment2).commit();
-            }
+            return true;
         }
-    };
+    }
 
 
 }

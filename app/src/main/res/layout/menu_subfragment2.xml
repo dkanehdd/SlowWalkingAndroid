@@ -19,6 +19,8 @@
         android:textSize="40sp">
     </TextView>
     <ListView
+        android:dividerHeight="10dp"
+        android:divider="#FFFFFF"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@android:id/list">
