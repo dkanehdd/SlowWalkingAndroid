@@ -3,6 +3,8 @@ package com.kosmo.slowwalking;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -20,6 +22,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -137,6 +141,7 @@ public class SubMenuFragment1 extends Fragment {
             viewHolder.date.setText(dto.getActivity_date());
             viewHolder.time.setText(dto.getActivity_time());
             viewHolder.requeststarrate.setRating(dto.getStarrate());
+            Glide.with(context).load(dto.getImage_path()).into(viewHolder.image_view);
 
             return convertView;
         }
@@ -216,7 +221,7 @@ public class SubMenuFragment1 extends Fragment {
                     dto.setResidence2(sitterview.get("residence2").toString().equals("null")?"":" "+sitterview.get("residence2").toString());
                     Log.i(TAG, sitterview.get("residence2").toString().equals("null")?"33":"55");
                     dto.setResidence3(sitterview.get("residence3").toString().equals("null")?"":" "+sitterview.get("residence3").toString());
-                    dto.setImage_path(sitterview.get("image_path").toString());
+                    dto.setImage_path("http://192.168.219.130:8080/slowwalking/resources/images/"+sitterview.get("image_path").toString());
                     dto.setAge(Integer.parseInt(sitterview.get("age").toString()));
                     dto.setPay(Integer.parseInt(sitterview.get("pay").toString()));
                     dto.setActivity_date(sitterview.get("activity_date").toString());

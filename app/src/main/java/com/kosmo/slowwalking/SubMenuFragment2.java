@@ -19,6 +19,8 @@ import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -133,7 +135,7 @@ public class SubMenuFragment2 extends Fragment {
             viewHolder.request_date.setText(dto.getRequest_date());
             viewHolder.request_time.setText(dto.getRequest_time());
             viewHolder.starrate.setRating(dto.getStarrate());
-
+            Glide.with(context).load(dto.getImage()).into(viewHolder.image_view);
             return convertView;
         }
     }
@@ -215,6 +217,7 @@ public class SubMenuFragment2 extends Fragment {
                     dto.setRequest_time(sitterview.get("request_time").toString());
                     dto.setStarrate(Integer.parseInt(sitterview.get("starrate").toString()));
                     dto.setIdx(Integer.parseInt(sitterview.get("idx").toString()));
+                    dto.setImage("http://192.168.219.130:8080/slowwalking/resources/images/"+sitterview.get("image").toString());
                     requestBoard.add(dto);
                 }
                 customAdapter  = new CustomAdapter(getContext(), requestBoard);

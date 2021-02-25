@@ -13,7 +13,7 @@ public class ChatActivity extends AppCompatActivity {
 
     private WebView mWebView;
     String sendid, receid, room;
-    private String myUrl = "http://192.168.0.12:8080/slowwalking/chat/chatui";// 접속 URL (내장HTML의 경우 왼쪽과 같이 쓰고 아니면 걍 URL)
+    private String myUrl = "http://192.168.219.130:8080/slowwalking/chat/chatui";// 접속 URL (내장HTML의 경우 왼쪽과 같이 쓰고 아니면 걍 URL)
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
