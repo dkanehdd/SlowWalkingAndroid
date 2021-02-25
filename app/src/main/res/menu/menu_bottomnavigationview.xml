@@ -7,11 +7,11 @@
         android:title="홈" />
     <item
         android:id="@+id/interviewItem"
-        android:icon="@drawable/number1"
+        android:icon="@drawable/chatballoon"
         android:title="내 구직현황" />
     <item
         android:id="@+id/dialyItem"
-        android:icon="@drawable/chatballoon"
+        android:icon="@drawable/number1"
         android:title="알림장쓰기" />
     <item
         android:id="@+id/mypageItem"

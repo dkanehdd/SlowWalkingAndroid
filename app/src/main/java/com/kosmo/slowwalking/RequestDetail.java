@@ -294,7 +294,7 @@ public class RequestDetail extends AppCompatActivity implements Runnable{
         URL url =null;
         try{
             // 스트링 주소를 url 형식으로 변환
-            url =new URL("http://192.168.219.117:8080/slowwalking/resources/images/"+image);
+            url =new URL("http://192.168.219.130:8080/slowwalking/resources/images/"+image);
             // url에 접속 시도
             HttpURLConnection conn = (HttpURLConnection)url.openConnection();
             conn.connect();
