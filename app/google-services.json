@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "515692153331",
+    "project_id": "wired-glyph-303100",
+    "storage_bucket": "wired-glyph-303100.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:515692153331:android:0d4470c2db780c1fb12a86",
+        "android_client_info": {
+          "package_name": "com.kosmo.slowwalking"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "515692153331-4f0ep7g7et09v3vclm3i7b79i2cbnpaf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-4Ig6gesYioRANpc4Riul4aitihhP0nE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "515692153331-4f0ep7g7et09v3vclm3i7b79i2cbnpaf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

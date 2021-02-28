@@ -9,7 +9,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -72,6 +72,7 @@ public class RequestDetail extends AppCompatActivity implements Runnable{
         request_childrenname = (TextView) findViewById(R.id.request_childrenname);
         region = (TextView) findViewById(R.id.region);
         request_date = (TextView)findViewById(R.id.request_date) ;
+        pay = (TextView)findViewById(R.id.request_pay);
         request_disability_grade = (TextView) findViewById(R.id.request_disability_grade);
         request_warning = (TextView) findViewById(R.id.request_warning);
         request_start_work = (TextView) findViewById(R.id.request_start_work);
@@ -278,6 +279,7 @@ public class RequestDetail extends AppCompatActivity implements Runnable{
                 request_regular_short.setText(requestdetailview.get("regular_short").toString());
                 rating.setRating(Integer.parseInt(requestdetailview.get("starrate").toString()));
                 image = requestdetailview.get("image").toString();
+                pay.setText(requestdetailview.get("pay").toString()+"원");
                 Thread th =new Thread( RequestDetail.this );
                 // 동작 수행
                 th.start();
@@ -294,7 +296,7 @@ public class RequestDetail extends AppCompatActivity implements Runnable{
         URL url =null;
         try{
             // 스트링 주소를 url 형식으로 변환
-            url =new URL("http://192.168.219.130:8080/slowwalking/resources/images/"+image);
+            url =new URL("http://192.168.50.180:8080/slowwalking/resources/images/"+image);
             // url에 접속 시도
             HttpURLConnection conn = (HttpURLConnection)url.openConnection();
             conn.connect();
