@@ -1,16 +1,13 @@
 package com.kosmo.slowwalking;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.OvalShape;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,7 +37,7 @@ public class SubMenuFragment1 extends Fragment {
     public static final String TAG = "iKosmo";
 
     ListView customListView;
-    InterViewDetail interViewDetail;
+    SitterDetail SitterDetail;
 
     private CustomAdapter customAdapter;
     ArrayList<SitterListDTO> siter;
@@ -223,7 +220,7 @@ public class SubMenuFragment1 extends Fragment {
                     dto.setResidence2(sitterview.get("residence2").toString().equals("null")?"":" "+sitterview.get("residence2").toString());
                     Log.i(TAG, sitterview.get("residence2").toString().equals("null")?"33":"55");
                     dto.setResidence3(sitterview.get("residence3").toString().equals("null")?"":" "+sitterview.get("residence3").toString());
-                    dto.setImage_path("http://192.168.219.130:8080/slowwalking/resources/images/"+sitterview.get("image_path").toString());
+                    dto.setImage_path("http://192.168.50.180:8080/slowwalking/resources/images/"+sitterview.get("image_path").toString());
                     dto.setAge(Integer.parseInt(sitterview.get("age").toString()));
                     dto.setPay(Integer.parseInt(sitterview.get("pay").toString()));
                     dto.setActivity_date(sitterview.get("activity_date").toString());
@@ -237,7 +234,7 @@ public class SubMenuFragment1 extends Fragment {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Intent intent = new Intent(view.getContext(),
-                                InterViewDetail.class);
+                                SitterDetail.class);
                         intent.putExtra("sitter_id", siter.get(position).getSitter_id());
                         intent.putExtra("id", user_id);
                         intent.putExtra("flag",flag);

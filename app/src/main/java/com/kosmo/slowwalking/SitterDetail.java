@@ -1,34 +1,24 @@
 package com.kosmo.slowwalking;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -37,10 +27,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 
-public class InterViewDetail extends AppCompatActivity implements Runnable{
+public class SitterDetail extends AppCompatActivity implements Runnable{
 
     public static final String TAG = "iKosmo";
 
@@ -80,7 +68,7 @@ public class InterViewDetail extends AppCompatActivity implements Runnable{
         String sitter_id = intent.getStringExtra("sitter_id");
         String flag = intent.getStringExtra("flag");
         String addr = getResources().getString(R.string.server_addr);
-        new SitterDetail().execute( //시터 리스트 불러오기
+        new SitterDetailView().execute( //시터 리스트 불러오기
                 addr+"SitterBoard_view",
                 "id="+sitter_id
         );
@@ -215,7 +203,7 @@ public class InterViewDetail extends AppCompatActivity implements Runnable{
 
 
     //상세시터리스트 불러오기
-    class SitterDetail extends AsyncTask<String, Void, String> {
+    class SitterDetailView extends AsyncTask<String, Void, String> {
 
 
         @Override
@@ -293,7 +281,7 @@ public class InterViewDetail extends AppCompatActivity implements Runnable{
                 request_pay.setText(sitterdetailview.get("pay").toString()+"원");
                 rating.setRating(Integer.parseInt(sitterdetailview.get("starrate").toString()));
                 image = sitterdetailview.get("image_path").toString();
-                Thread th =new Thread(InterViewDetail.this);
+                Thread th =new Thread(SitterDetail.this);
                 // 동작 수행
                 th.start();
             }
@@ -309,7 +297,7 @@ public class InterViewDetail extends AppCompatActivity implements Runnable{
         URL url =null;
         try{
             // 스트링 주소를 url 형식으로 변환
-            url =new URL("http://192.168.219.130:8080/slowwalking/resources/images/"+image);
+            url =new URL("http://192.168.50.180:8080/slowwalking/resources/images/"+image);
             // url에 접속 시도
             HttpURLConnection conn = (HttpURLConnection)url.openConnection();
             conn.connect();
